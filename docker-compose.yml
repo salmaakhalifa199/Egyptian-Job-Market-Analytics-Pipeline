@@ -1,40 +1,18 @@
-
-# ── Egyptian Job Market Pipeline — Full Stack ─────────────────────────────────
-# Services: Zookeeper, Kafka, Kafka-UI, Postgres, Airflow (webserver + scheduler)
+# ── Egyptian Job Market Analytics Pipeline ────────────────────────────────────
+# ONE file to run everything:
+#   Zookeeper + Kafka + Kafka UI + Airflow (Astro handles Airflow separately)
 #
 # Usage:
-#   docker-compose up -d                   # start everything
-#   docker-compose down -v                 # stop + remove volumes
-#   docker-compose logs -f airflow-scheduler  # tail scheduler logs
+#   docker-compose up -d       → start Kafka stack
+#   docker-compose down        → stop everything
 #
-# Airflow UI : http://localhost:8081   (user: admin / pass: admin)
-# Kafka UI   : http://localhost:8080
-# Kafka      : localhost:9092
-
-x-airflow-common: &airflow-common
-  image: apache/airflow:2.9.1
-  environment:
-    AIRFLOW__CORE__EXECUTOR: LocalExecutor
-    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres-airflow/airflow
-    AIRFLOW__CORE__FERNET_KEY: "46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLt0nIe3aI="
-    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "false"
-    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
-    AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "true"
-    PYTHONPATH: "/opt/airflow/project"
-  volumes:
-    # Mount your whole project into the container
-    - ./:/opt/airflow/project
-    - ./airflow/dags:/opt/airflow/dags
-    - ./logs:/opt/airflow/logs
-  depends_on:
-    postgres-airflow:
-      condition: service_healthy
-  networks:
-    - pipeline-net
+# Kafka UI  : http://localhost:8080
+# Kafka     : localhost:9092  (from Windows)
+#             kafka:29092     (from inside Docker / Airflow containers)
+# ─────────────────────────────────────────────────────────────────────────────
 
 services:
 
-  # ── Zookeeper ───────────────────────────────────────────────────────────────
   zookeeper:
     image: confluentinc/cp-zookeeper:7.6.0
     container_name: zookeeper
@@ -51,7 +29,6 @@ services:
       timeout: 5s
       retries: 5
 
-  # ── Kafka broker ────────────────────────────────────────────────────────────
   kafka:
     image: confluentinc/cp-kafka:7.6.0
     container_name: kafka
@@ -73,14 +50,13 @@ services:
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_LOG_RETENTION_HOURS: 24
     volumes:
-      - kafka-data:/var/lib/kafka/data   # persist topic data across restarts
+      - kafka-data:/var/lib/kafka/data
     healthcheck:
       test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
       interval: 15s
       timeout: 10s
       retries: 5
 
-  # ── Kafka UI ─────────────────────────────────────────────────────────────────
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
     container_name: kafka-ui
@@ -95,69 +71,10 @@ services:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
 
-  # ── PostgreSQL (Airflow metadata DB) ─────────────────────────────────────────
-  postgres-airflow:
-    image: postgres:15
-    container_name: postgres-airflow
-    networks:
-      - pipeline-net
-    environment:
-      POSTGRES_USER: airflow
-      POSTGRES_PASSWORD: airflow
-      POSTGRES_DB: airflow
-    ports:
-      - "5433:5432"    # 5433 on host to avoid conflict with any local postgres
-    volumes:
-      - postgres-airflow-data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "airflow"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # ── Airflow init (runs once to create DB tables + admin user) ─────────────────
-  airflow-init:
-    <<: *airflow-common
-    container_name: airflow-init
-    entrypoint: /bin/bash
-    command:
-      - -c
-      - |
-        airflow db migrate
-        airflow users create \
-          --username admin \
-          --password admin \
-          --firstname Salma \
-          --lastname Sherif \
-          --role Admin \
-          --email salmakhalifa06991@gmail.com
-    restart: "no"
-
-  # ── Airflow webserver ─────────────────────────────────────────────────────────
-  airflow-webserver:
-    <<: *airflow-common
-    container_name: airflow-webserver
-    command: webserver
-    ports:
-      - "8081:8080"
-    healthcheck:
-      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-    restart: unless-stopped
-
-  # ── Airflow scheduler ─────────────────────────────────────────────────────────
-  airflow-scheduler:
-    <<: *airflow-common
-    container_name: airflow-scheduler
-    command: scheduler
-    restart: unless-stopped
-
 networks:
   pipeline-net:
+    name: pipeline-net    # fixed name so Astro containers can join it
     driver: bridge
 
 volumes:
-  kafka-data:             # Kafka topic data persists across docker-compose down
-  postgres-airflow-data:  # Airflow metadata DB persists across restarts
+  kafka-data:

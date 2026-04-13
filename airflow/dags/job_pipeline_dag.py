@@ -36,9 +36,13 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.operators.empty import EmptyOperator
 
-# ── Project root (one level above airflow/) ────────────────────────────────────
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(PROJECT_ROOT))
+# ── Paths inside the Astro container ──────────────────────────────────────────
+# Dockerfile COPYs: scraper/ and Kafka/ → /usr/local/airflow/
+# data/ is mounted live via docker-compose.override.yml
+# PYTHONPATH is already set to /usr/local/airflow by the Dockerfile
+AIRFLOW_HOME = Path("/usr/local/airflow/project")
+PROJECT_ROOT = AIRFLOW_HOME
+sys.path.insert(0, str(AIRFLOW_HOME))
 
 logger = logging.getLogger(__name__)
 
@@ -174,7 +178,7 @@ def produce_to_kafka(**context) -> dict:
     total_published = 0
 
     try:
-        from pipeline_kafka.producer import make_producer, publish_jobs, load_jobs_from_file
+        from Kafka.producer import make_producer, publish_jobs, load_jobs_from_file
         from kafka.errors import NoBrokersAvailable
 
         logger.info("Connecting to Kafka...")
@@ -216,7 +220,7 @@ def consume_from_kafka(**context) -> dict:
     Task 4: Consume messages from Kafka, clean them, write to staging.
     If producer ran in simulation mode, processes jobs directly from XCom.
     """
-    from pipeline_kafka.consumer import clean_job, write_batch
+    from Kafka.consumer import clean_job, write_batch
 
     STAGING_DIR.mkdir(parents=True, exist_ok=True)
     mode = context["ti"].xcom_pull(
@@ -237,7 +241,7 @@ def consume_from_kafka(**context) -> dict:
     else:
         # Real Kafka path
         try:
-            from pipeline_kafka.consumer import make_consumer
+            from Kafka.consumer import make_consumer
             consumer = make_consumer()
             for message in consumer:
                 cleaned_jobs.append(clean_job(message.value))
