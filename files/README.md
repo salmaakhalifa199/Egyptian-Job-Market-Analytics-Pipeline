@@ -31,72 +31,7 @@ egyptian_job_pipeline/
 │   └── .env.example          # Environment variable template
 ├── run_scraper.sh            # Shell entry point
 └── requirements.txt
-```
 
----
-
-## Setup
-
-### 1. Clone and install dependencies
-```bash
-git clone <your-repo>
-cd egyptian_job_pipeline
-pip install -r requirements.txt
-```
-
-### 2. Configure environment
-```bash
-cp config/.env.example config/.env
-# Edit config/.env with your PostgreSQL credentials
-```
-
----
-
-## Phase 1 — Scraping
-
-### Run the scraper
-```bash
-# Basic usage
-bash run_scraper.sh "data engineer" 5
-
-# Other keywords to try
-bash run_scraper.sh "data analyst" 5
-bash run_scraper.sh "machine learning" 3
-bash run_scraper.sh "backend developer" 5
-```
-
-### Validate scraped data
-```bash
-# Validate a single file
-python scraper/validator.py --file data/raw/wuzzuf_data_engineer_20260412_120000.json
-
-# Validate all files in the raw directory
-python scraper/validator.py --dir data/raw
-```
-
-Output files are saved to `data/raw/` as:
-```
-wuzzuf_{keyword}_{timestamp}.json
-```
-
-### JSON schema (one job object)
-```json
-{
-  "job_id":      "abc123",
-  "title":       "Data Engineer",
-  "company":     "Vodafone Egypt",
-  "location":    "Cairo, Egypt",
-  "job_type":    "Full Time",
-  "experience":  "2 - 4 Yrs of Exp",
-  "skills":      ["Python", "SQL", "Apache Spark"],
-  "posted_date": "3 days ago",
-  "url":         "https://wuzzuf.net/jobs/p/...",
-  "scraped_at":  "2026-04-12T10:00:00+00:00",
-  "keyword":     "data engineer"
-}
-```
-
----
 
 ## Phases (Coming Next)
 

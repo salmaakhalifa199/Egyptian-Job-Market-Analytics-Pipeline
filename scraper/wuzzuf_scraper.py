@@ -39,8 +39,7 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
-import requests
-from bs4 import BeautifulSoup, Tag
+from playwright.sync_api import sync_playwright
 
 # ── Logging setup ─────────────────────────────────────────────────────────────
 logging.basicConfig(
@@ -78,6 +77,17 @@ HEADERS = {
 #           <div class="css-lptxge">  ← inner wrapper (contains <h2>)
 #             <h2 …><a href="/jobs/p/…">  ← title link ✓
 #
+# ── Known job-type / work-mode values ────────────────────────────────────────
+# Wuzzuf's current DOM appends work-mode text (On-site / Hybrid / Remote) to
+# the location span, and job-type text leaks into company fallback anchors.
+# These sets are used to strip / detect those values during parsing.
+KNOWN_WORK_MODES = {"on-site", "hybrid", "remote"}
+KNOWN_JOB_TYPES  = {
+    "full time", "part time", "internship",
+    "freelance / project", "freelance", "contract",
+    "temporary", "volunteer",
+}
+
 # CARD_SELECTORS are tried in order; first match wins.
 # _find_cards() always has a Python walk-up heuristic as final fallback.
 CARD_SELECTORS = [
@@ -153,23 +163,23 @@ FIELD_SELECTORS = {
 }
 
 
-def _first(card: Tag, selectors) -> Tag | None:
+def _first(card, selectors):
     """Try selectors in order, return the first match inside *card*."""
     if isinstance(selectors, str):
         selectors = [selectors]
     for sel in selectors:
-        found = card.select_one(sel)
+        found = card.query_selector(sel)
         if found:
             return found
     return None
 
 
-def _all(card: Tag, selectors) -> list[Tag]:
+def _all(card, selectors):
     """Try selectors in order, return all matches for the first that hits."""
     if isinstance(selectors, str):
         selectors = [selectors]
     for sel in selectors:
-        found = card.select(sel)
+        found = card.query_selector_all(sel)
         if found:
             return found
     return []
@@ -183,42 +193,44 @@ class WuzzufScraper:
         self.keyword = keyword
         self.max_pages = max_pages
         self.output_dir = output_dir
-        self.session = requests.Session()
-        self.session.headers.update(HEADERS)
+        self.playwright = sync_playwright().start()
+        self.browser = self.playwright.chromium.launch(headless=True)
+        self.context = self.browser.new_context(
+            user_agent=(
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/124.0.0.0 Safari/537.36"
+            )
+        )
+        self.page = self.context.new_page()
         self.jobs: list[dict] = []
 
     # ── HTTP ──────────────────────────────────────────────────────────────────
-    def _get_page(self, page: int) -> BeautifulSoup | None:
+    def _get_page(self, page: int) -> bool:
         params = {"q": self.keyword, "a[page]": page}
+        url = f"{BASE_URL}?q={self.keyword}&a%5Bpage%5D={page}"
         try:
-            response = self.session.get(
-                BASE_URL, params=params, timeout=REQUEST_TIMEOUT
-            )
-            response.raise_for_status()
-            return BeautifulSoup(response.text, "lxml")
-        except requests.exceptions.HTTPError as e:
-            logger.error(f"HTTP error on page {page}: {e}")
-        except requests.exceptions.ConnectionError:
-            logger.error(f"Connection error on page {page}. Check your internet.")
-        except requests.exceptions.Timeout:
-            logger.error(f"Request timed out on page {page}.")
-        return None
+            self.page.goto(url, timeout=REQUEST_TIMEOUT * 1000)
+            return True
+        except Exception as e:
+            logger.error(f"Failed to load page {page}: {e}")
+            return False
 
     # ── Card discovery ────────────────────────────────────────────────────────
-    def _find_cards(self, soup: BeautifulSoup) -> list[Tag]:
+    def _find_cards(self) -> list:
         """
         Locate all job cards on the page using stable selectors.
         Falls back to a heuristic: any element that directly contains a
         title link (h2 > a[href*='/jobs/p/']).
         """
         for sel in CARD_SELECTORS:
-            cards = soup.select(sel)
+            cards = self.page.query_selector_all(sel)
             if cards:
                 logger.debug(f"Card selector matched: {sel!r} → {len(cards)} cards")
                 return cards
 
         # Heuristic fallback: find all title anchors, then take their grandparent
-        title_links = soup.select("h2 a[href*='/jobs/p/']")
+        title_links = self.page.query_selector_all("h2 a[href*='/jobs/p/']")
         if title_links:
             logger.warning(
                 "No card container matched — using grandparent heuristic. "
@@ -231,31 +243,30 @@ class WuzzufScraper:
                 # whole card (heuristic: 3 levels up from the <a>)
                 container = link
                 for _ in range(3):   # h2→inner-div→card-root (confirmed April 2026)
-                    if container.parent:
-                        container = container.parent
-                card_id = id(container)
-                if card_id not in seen:
-                    seen.add(card_id)
+                    if container:
+                        container = container.query_selector("xpath=..")
+                if container and id(container) not in seen:
+                    seen.add(id(container))
                     cards.append(container)
             return cards
 
         return []
 
     # ── Parsing ───────────────────────────────────────────────────────────────
-    def _parse_job_card(self, card: Tag, scraped_at: str) -> dict | None:
+    def _parse_job_card(self, card, scraped_at: str) -> dict | None:
         try:
             # ── Title + URL ──────────────────────────────────────────────────
             title_tag = _first(card, FIELD_SELECTORS["title_link"])
             if not title_tag:
                 return None
-            title = title_tag.get_text(strip=True)
-            url = title_tag.get("href", "")
+            title = title_tag.inner_text().strip()
+            url = title_tag.get_attribute("href") or ""
             if not url.startswith("http"):
                 url = "https://wuzzuf.net" + url
 
             # ── Job ID ───────────────────────────────────────────────────────
             # Prefer the data-jobid attribute on the card itself
-            job_id = card.get("data-jobid", "")
+            job_id = card.get_attribute("data-jobid") or ""
             if not job_id:
                 m = re.search(r"/jobs/p/([^/?#]+)", url)
                 job_id = m.group(1) if m else url.split("/")[-1]
@@ -263,54 +274,124 @@ class WuzzufScraper:
             # ── Company ──────────────────────────────────────────────────────
             company_tag = _first(card, FIELD_SELECTORS["company"])
             if company_tag:
-                company = company_tag.get_text(strip=True)
+                company = company_tag.inner_text().strip()
             else:
-                # Positional fallback: first <a> in the card that is NOT the title link
+                # Positional fallback: first <a> that is NOT the title link
+                # AND whose text is not a known job-type value
                 company = "Unknown"
-                for a in card.find_all("a", href=True):
-                    href = a.get("href", "")
-                    text = a.get_text(strip=True)
-                    if "/jobs/p/" not in href and text:
+                for a in card.query_selector_all("a[href]"):
+                    href = a.get_attribute("href") or ""
+                    text = a.inner_text().strip()
+                    if (
+                        "/jobs/p/" not in href
+                        and text
+                        and text.lower() not in KNOWN_JOB_TYPES
+                        and text.lower() not in KNOWN_WORK_MODES
+                    ):
                         company = text
                         break
+            # Strip trailing " -" artifact present in Wuzzuf's current markup
+            company = re.sub(r"\s*-\s*$", "", company).strip()
 
-            # ── Location ─────────────────────────────────────────────────────
+            # ── Location + job_type (co-located in the same span) ─────────────
+            # April 2026: Wuzzuf renders location AND work-mode/job-type in one
+            # span, e.g. "Cairo, Egypt, On-site" or "Cairo, Egypt, Hybrid".
+            # We split off the last comma-segment when it's a known value.
             location_tag = _first(card, FIELD_SELECTORS["location"])
             if location_tag:
-                location = location_tag.get_text(strip=True)
+                raw_loc = location_tag.inner_text().strip()
             else:
-                # Positional fallback: short <span> texts outside the <h2> that
-                # don't look like job-type or experience values
-                skip_kw = {"yrs", "year", "full", "part", "intern", "remote", "contract"}
-                spans = [
-                    s.get_text(strip=True)
-                    for s in card.find_all("span")
-                    if s.get_text(strip=True)
-                    and s.find_parent("h2") is None
-                    and len(s.get_text(strip=True)) < 40
-                    and not any(kw in s.get_text(strip=True).lower() for kw in skip_kw)
-                ]
-                location = ", ".join(spans[:2]) if spans else "Egypt"
+                skip_kw = {"yrs", "year"}
+                spans = []
+                for s in card.query_selector_all("span"):
+                    text = s.inner_text().strip()
+                    if text and len(text) < 60 and not any(kw in text.lower() for kw in skip_kw):
+                        # ElementHandle-compatible ancestor check:
+                        # evaluate() runs JS in the browser context so it works
+                        # with all Playwright versions (no .locator() needed)
+                        inside_h2 = s.evaluate(
+                            "el => el.closest('h2') !== null"
+                        )
+                        if not inside_h2:
+                            spans.append(text)
+                raw_loc = ", ".join(spans[:2]) if spans else "Egypt"
+
+            # Parse location + work-mode out of the combined string
+            loc_parts = [p.strip() for p in raw_loc.split(",")]
+            extracted_job_type = "Unknown"
+            # Walk from the end — strip any known work-mode or job-type suffixes
+            while loc_parts and loc_parts[-1].lower() in KNOWN_WORK_MODES | KNOWN_JOB_TYPES:
+                last = loc_parts.pop()
+                if extracted_job_type == "Unknown":
+                    extracted_job_type = last   # keep the first one found
+            location = ", ".join(loc_parts) if loc_parts else raw_loc
 
             # ── Job type ─────────────────────────────────────────────────────
+            # First try explicit selectors; fall back to what we extracted above
             job_type_tag = _first(card, FIELD_SELECTORS["job_type"])
-            job_type = job_type_tag.get_text(strip=True) if job_type_tag else "Unknown"
+            if job_type_tag:
+                job_type = job_type_tag.inner_text().strip()
+            else:
+                job_type = extracted_job_type
 
             # ── Experience ───────────────────────────────────────────────────
             exp_tag = _first(card, FIELD_SELECTORS["experience"])
-            experience = exp_tag.get_text(strip=True) if exp_tag else "Not specified"
+            if exp_tag:
+                experience = exp_tag.inner_text().strip()
+            else:
+                # Structural fallback: scan all span/p text for "Yrs" / "Yr"
+                # pattern — e.g. "2 - 4 Yrs of Exp", "0 - 1 Yr of Exp"
+                experience = "Not specified"
+                for el in card.query_selector_all("span, p, div"):
+                    text = el.inner_text().strip()
+                    if re.search(r"\d+.*yr", text, re.IGNORECASE) and len(text) < 50:
+                        experience = text
+                        break
 
             # ── Skills ───────────────────────────────────────────────────────
             skill_tags = _all(card, FIELD_SELECTORS["skills"])
-            skills = [s.get_text(strip=True) for s in skill_tags if s.get_text(strip=True)]
+            if skill_tags:
+                skills = [s.inner_text().strip() for s in skill_tags if s.inner_text().strip()]
+            else:
+                # Structural fallback: small <a> tags whose href contains
+                # filters[skill] OR whose text is short (≤25 chars) and
+                # does NOT look like a location / job-type / company link
+                skills = []
+                for a in card.query_selector_all("a[href]"):
+                    href = a.get_attribute("href") or ""
+                    text = a.inner_text().strip()
+                    if (
+                        "skill" in href.lower()
+                        or "tag" in href.lower()
+                        or (
+                            "/jobs/p/" not in href
+                            and "/jobs/c/" not in href
+                            and "/company/" not in href
+                            and text
+                            and len(text) <= 25
+                            and text.lower() not in KNOWN_JOB_TYPES
+                            and text.lower() not in KNOWN_WORK_MODES
+                            and not re.search(r"\d+\s*(yr|yrs|year)", text, re.I)
+                        )
+                    ):
+                        skills.append(text)
 
             # ── Posted date ──────────────────────────────────────────────────
             date_tag = _first(card, FIELD_SELECTORS["posted_date"])
             if date_tag:
-                # Prefer the machine-readable datetime attribute
-                posted_date = date_tag.get("datetime") or date_tag.get_text(strip=True)
+                posted_date = date_tag.get_attribute("datetime") or date_tag.inner_text().strip()
             else:
+                # Structural fallback: look for "ago" or date-like patterns
                 posted_date = "Unknown"
+                for el in card.query_selector_all("span, div, time, p"):
+                    text = el.inner_text().strip()
+                    if re.search(r"\d+\s*(hour|day|week|month)s?\s*ago", text, re.I):
+                        posted_date = text
+                        break
+                    if re.search(r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\b",
+                                 text, re.I) and len(text) < 30:
+                        posted_date = text
+                        break
 
             return {
                 "job_id":      job_id,
@@ -330,8 +411,8 @@ class WuzzufScraper:
             logger.warning(f"Failed to parse a card: {e}")
             return None
 
-    def _parse_page(self, soup: BeautifulSoup, scraped_at: str) -> list[dict]:
-        cards = self._find_cards(soup)
+    def _parse_page(self, scraped_at: str) -> list[dict]:
+        cards = self._find_cards()
         logger.info(f"  Found {len(cards)} job cards on this page")
 
         jobs = []
@@ -342,7 +423,7 @@ class WuzzufScraper:
         return jobs
 
     # ── No-results detection ──────────────────────────────────────────────────
-    def _is_empty_results_page(self, soup: BeautifulSoup) -> bool:
+    def _is_empty_results_page(self) -> bool:
         """
         Return True only when Wuzzuf explicitly signals zero results.
 
@@ -355,7 +436,7 @@ class WuzzufScraper:
         node anywhere in the page (nav labels, meta descriptions, footers …).
         """
         # Condition 1: no title links at all
-        has_jobs = bool(soup.select("h2 a[href*='/jobs/p/']"))
+        has_jobs = bool(self.page.query_selector_all("h2 a[href*='/jobs/p/']"))
         if has_jobs:
             return False
 
@@ -368,15 +449,15 @@ class WuzzufScraper:
             "section[class*='empty']",
         ]
         for sel in empty_selectors:
-            if soup.select_one(sel):
+            if self.page.query_selector(sel):
                 logger.debug(f"Empty-state element matched: {sel!r}")
                 return True
 
         # Condition 2b: a heading (h1–h3) whose text is the "no results" message
-        for heading in soup.find_all(["h1", "h2", "h3"]):
-            text = heading.get_text(strip=True).lower()
+        for heading in self.page.query_selector_all("h1, h2, h3"):
+            text = heading.inner_text().strip().lower()
             if re.search(r"no (results|jobs|vacancies) found|0 jobs", text):
-                logger.debug(f"Empty-state heading found: {heading.get_text(strip=True)!r}")
+                logger.debug(f"Empty-state heading found: {heading.inner_text().strip()!r}")
                 return True
 
         # No jobs AND no explicit empty-state signal → probably a selector miss,
@@ -395,25 +476,36 @@ class WuzzufScraper:
             logger.info(f"Page {page}/{self.max_pages} ...")
             scraped_at = datetime.now(timezone.utc).isoformat()
 
-            soup = self._get_page(page)
-            if soup is None:
+            success = self._get_page(page)
+            if not success:
                 logger.warning(f"Skipping page {page} (failed to fetch)")
                 continue
 
             # Stop early only when the page genuinely has no results
-            if self._is_empty_results_page(soup):
+            if self._is_empty_results_page():
                 logger.info("Wuzzuf reports no more results — stopping early.")
                 break
 
-            page_jobs = self._parse_page(soup, scraped_at)
-            self.jobs.extend(page_jobs)
-            logger.info(f"  Total collected so far: {len(self.jobs)}")
+            page_jobs = self._parse_page(scraped_at)
+            # Deduplicate: Wuzzuf sometimes returns the same cards across pages
+            seen_ids = {j["job_id"] for j in self.jobs}
+            new_jobs = [j for j in page_jobs if j["job_id"] not in seen_ids]
+            dupes = len(page_jobs) - len(new_jobs)
+            if dupes:
+                logger.warning("  Skipped %d duplicate job(s) on page %d", dupes, page)
+            self.jobs.extend(new_jobs)
+            logger.info("  Total collected so far: %d", len(self.jobs))
 
             if page < self.max_pages:
                 time.sleep(DELAY_SECONDS)
 
         logger.info(f"Scraping complete. Total jobs collected: {len(self.jobs)}")
         return self.jobs
+
+    def close(self):
+        self.context.close()
+        self.browser.close()
+        self.playwright.stop()
 
     # ── Output ────────────────────────────────────────────────────────────────
     def save(self) -> Path:
@@ -541,12 +633,11 @@ def main():
     else:
         logger.warning(
             "No jobs collected.\n"
-            "  1. Save a page manually:\n"
-            "       curl -A \"Mozilla/5.0\" \"https://wuzzuf.net/search/jobs/?q=data+engineer\" -o page.html\n"
-            "  2. Run the debug helper:\n"
-            "       python scraper/wuzzuf_scraper.py --debug-html page.html\n"
+            "  1. Check your internet connection.\n"
+            "  2. The selectors may need updating. Run --debug-html on a saved page.\n"
             "  3. Update CARD_SELECTORS / FIELD_SELECTORS at the top of the file."
         )
+    scraper.close()
 
 
 if __name__ == "__main__":
