@@ -1,7 +1,7 @@
 services:
   webserver:
     ports:
-      - "8081:8080"      # Airflow UI always at http://localhost:8081
+      - "8081:8080"
     volumes:
       - ../:/usr/local/airflow/project
 
@@ -15,4 +15,4 @@ services:
 
   postgres:
     ports:
-      - "5434:5432"      # Fixed port, avoids conflicts with other postgres instances
+      - "5434:5432"
