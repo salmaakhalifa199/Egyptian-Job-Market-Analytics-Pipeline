@@ -37,7 +37,6 @@ egyptian_job_pipeline/
 
 | Phase | What you'll build |
 |-------|-------------------|
-| 2     | ✔ Kafka producer + consumer — pipeline_kafka/ |
 | 3     | Airflow DAG to orchestrate the full pipeline |
 | 4     | PostgreSQL star schema data warehouse |
 | 5     | Looker Studio / IBM Cognos BI dashboard |
@@ -48,8 +47,6 @@ egyptian_job_pipeline/
 
 | Layer       | Tool                            |
 |-------------|----------------------------------|
-| Ingestion   | Python · Shell · BeautifulSoup   |
-| Streaming   | Apache Kafka                     |
 | Orchestration | Apache Airflow                 |
 | Storage     | PostgreSQL (staging + DW)        |
 | BI          | Google Looker Studio / IBM Cognos|
