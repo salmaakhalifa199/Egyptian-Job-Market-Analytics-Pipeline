@@ -493,6 +493,13 @@ class WuzzufScraper:
             dupes = len(page_jobs) - len(new_jobs)
             if dupes:
                 logger.warning("  Skipped %d duplicate job(s) on page %d", dupes, page)
+
+            # ── ADD THIS ──────────────────────────────────────────────────────────────────
+            if dupes == len(page_jobs) and page_jobs:
+                logger.info("  Entire page %d was duplicates — Wuzzuf pagination exhausted, stopping early.", page)
+                break
+            # ─────────────────────────────────────────────────────────────────────────────
+
             self.jobs.extend(new_jobs)
             logger.info("  Total collected so far: %d", len(self.jobs))
 

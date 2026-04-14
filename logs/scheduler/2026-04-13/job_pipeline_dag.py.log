@@ -1594,3 +1594,150 @@ ModuleNotFoundError: No module named 'airflow.providers.standard'
 [2026-04-13T09:49:32.680+0000] {logging_mixin.py:188} INFO - [2026-04-13T09:49:32.680+0000] {dag.py:3096} INFO - Sync 1 DAGs
 [2026-04-13T09:49:32.704+0000] {logging_mixin.py:188} INFO - [2026-04-13T09:49:32.704+0000] {dag.py:3954} INFO - Setting next_dagrun for egyptian_job_market_pipeline to 2026-04-13 06:00:00+00:00, run_after=2026-04-14 06:00:00+00:00
 [2026-04-13T09:49:32.725+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.133 seconds
+[2026-04-13T22:35:47.689+0000] {processor.py:186} INFO - Started process (PID=175) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:35:47.700+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:35:47.741+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:35:47.734+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:35:47.818+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:35:48.184+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:35:48.182+0000] {override.py:1911} INFO - Created Permission View: can delete on DAG:egyptian_job_market_pipeline
+[2026-04-13T22:35:48.196+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:35:48.196+0000] {override.py:1911} INFO - Created Permission View: can read on DAG:egyptian_job_market_pipeline
+[2026-04-13T22:35:48.204+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:35:48.203+0000] {override.py:1911} INFO - Created Permission View: can edit on DAG:egyptian_job_market_pipeline
+[2026-04-13T22:35:48.213+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:35:48.212+0000] {override.py:1911} INFO - Created Permission View: can create on DAG Run:egyptian_job_market_pipeline
+[2026-04-13T22:35:48.221+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:35:48.220+0000] {override.py:1911} INFO - Created Permission View: can delete on DAG Run:egyptian_job_market_pipeline
+[2026-04-13T22:35:48.229+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:35:48.229+0000] {override.py:1911} INFO - Created Permission View: can read on DAG Run:egyptian_job_market_pipeline
+[2026-04-13T22:35:48.239+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:35:48.238+0000] {override.py:1911} INFO - Created Permission View: menu access on DAG Run:egyptian_job_market_pipeline
+[2026-04-13T22:35:48.240+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:35:48.239+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:35:48.278+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:35:48.278+0000] {dag.py:3262} INFO - Creating ORM DAG for egyptian_job_market_pipeline
+[2026-04-13T22:35:48.299+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:35:48.299+0000] {dag.py:4180} INFO - Setting next_dagrun for egyptian_job_market_pipeline to 2026-04-12 06:00:00+00:00, run_after=2026-04-13 06:00:00+00:00
+[2026-04-13T22:35:48.336+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.754 seconds
+[2026-04-13T22:36:18.708+0000] {processor.py:186} INFO - Started process (PID=183) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:36:18.709+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:36:18.718+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:36:18.717+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:36:18.760+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:36:18.827+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:36:18.827+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:36:18.916+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.217 seconds
+[2026-04-13T22:36:49.049+0000] {processor.py:186} INFO - Started process (PID=188) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:36:49.053+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:36:49.060+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:36:49.059+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:36:49.106+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:36:49.178+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:36:49.178+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:36:49.230+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.193 seconds
+[2026-04-13T22:37:19.570+0000] {processor.py:186} INFO - Started process (PID=193) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:37:19.572+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:37:19.576+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:37:19.575+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:37:19.613+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:37:19.650+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:37:19.650+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:37:19.699+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.140 seconds
+[2026-04-13T22:37:50.155+0000] {processor.py:186} INFO - Started process (PID=198) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:37:50.157+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:37:50.161+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:37:50.161+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:37:50.231+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:37:50.357+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:37:50.356+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:37:50.441+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.296 seconds
+[2026-04-13T22:38:20.721+0000] {processor.py:186} INFO - Started process (PID=203) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:38:20.722+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:38:20.726+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:38:20.725+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:38:20.778+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:38:20.826+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:38:20.825+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:38:20.876+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.163 seconds
+[2026-04-13T22:38:51.460+0000] {processor.py:186} INFO - Started process (PID=208) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:38:51.462+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:38:51.478+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:38:51.477+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:38:51.548+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:38:51.660+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:38:51.659+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:38:51.781+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.364 seconds
+[2026-04-13T22:39:22.326+0000] {processor.py:186} INFO - Started process (PID=213) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:39:22.330+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:39:22.364+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:39:22.359+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:39:22.468+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:39:22.643+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:39:22.642+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:39:22.792+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.525 seconds
+[2026-04-13T22:39:53.084+0000] {processor.py:186} INFO - Started process (PID=218) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:39:53.086+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:39:53.089+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:39:53.088+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:39:53.119+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:39:53.156+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:39:53.155+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:39:53.202+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.125 seconds
+[2026-04-13T22:40:23.453+0000] {processor.py:186} INFO - Started process (PID=223) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:40:23.454+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:40:23.457+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:40:23.456+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:40:23.482+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:40:23.516+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:40:23.515+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:40:23.568+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.123 seconds
+[2026-04-13T22:40:53.902+0000] {processor.py:186} INFO - Started process (PID=231) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:40:53.903+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:40:53.906+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:40:53.905+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:40:53.930+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:40:53.964+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:40:53.964+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:40:54.007+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.112 seconds
+[2026-04-13T22:41:24.234+0000] {processor.py:186} INFO - Started process (PID=242) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:41:24.235+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:41:24.239+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:41:24.238+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:41:24.262+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:41:24.297+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:41:24.296+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:41:24.349+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.123 seconds
+[2026-04-13T22:41:55.081+0000] {processor.py:186} INFO - Started process (PID=247) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:41:55.082+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:41:55.085+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:41:55.085+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:41:55.120+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:41:55.168+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:41:55.168+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:41:55.232+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.172 seconds
+[2026-04-13T22:42:25.437+0000] {processor.py:186} INFO - Started process (PID=252) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:42:25.439+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:42:25.441+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:42:25.441+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:42:25.466+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:42:25.512+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:42:25.512+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:42:25.568+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.139 seconds
+[2026-04-13T22:42:55.778+0000] {processor.py:186} INFO - Started process (PID=257) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:42:55.779+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:42:55.783+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:42:55.782+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:42:55.809+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:42:55.852+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:42:55.852+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:42:55.907+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.140 seconds
+[2026-04-13T22:43:26.254+0000] {processor.py:186} INFO - Started process (PID=262) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:43:26.255+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:43:26.258+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:43:26.258+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:43:26.285+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:43:26.325+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:43:26.325+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:43:26.390+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.144 seconds
+[2026-04-13T22:43:56.646+0000] {processor.py:186} INFO - Started process (PID=267) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:43:56.646+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:43:56.649+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:43:56.649+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:43:56.674+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:43:56.709+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:43:56.709+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:43:56.752+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.115 seconds
+[2026-04-13T22:44:27.216+0000] {processor.py:186} INFO - Started process (PID=272) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:44:27.220+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:44:27.228+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:44:27.226+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:44:27.268+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:44:27.313+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:44:27.313+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:44:27.362+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.209 seconds
+[2026-04-13T22:44:57.475+0000] {processor.py:186} INFO - Started process (PID=277) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:44:57.490+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:44:57.517+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:44:57.516+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:44:57.653+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:44:57.796+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:44:57.795+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:44:57.849+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.394 seconds
+[2026-04-13T22:45:28.040+0000] {processor.py:186} INFO - Started process (PID=282) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:45:28.041+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:45:28.044+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:45:28.043+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:45:28.073+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:45:28.108+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:45:28.108+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:45:28.152+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.120 seconds
+[2026-04-13T22:45:58.586+0000] {processor.py:186} INFO - Started process (PID=287) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:45:58.587+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:45:58.591+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:45:58.591+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:45:58.619+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:45:58.659+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:45:58.658+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:45:58.709+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.133 seconds
+[2026-04-13T22:46:28.945+0000] {processor.py:186} INFO - Started process (PID=295) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:46:28.946+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:46:28.949+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:46:28.949+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:46:28.977+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:46:29.021+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:46:29.021+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:46:29.072+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.137 seconds
+[2026-04-13T22:46:33.126+0000] {processor.py:186} INFO - Started process (PID=300) to work on /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:46:33.127+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/job_pipeline_dag.py for tasks to queue
+[2026-04-13T22:46:33.130+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:46:33.130+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:46:33.172+0000] {processor.py:925} INFO - DAG(s) 'egyptian_job_market_pipeline' retrieved from /opt/airflow/dags/job_pipeline_dag.py
+[2026-04-13T22:46:33.206+0000] {logging_mixin.py:190} INFO - [2026-04-13T22:46:33.206+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2026-04-13T22:46:33.263+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/job_pipeline_dag.py took 0.145 seconds

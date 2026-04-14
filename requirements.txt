@@ -1,6 +1,3 @@
-# requirements.txt
-# Astro reads this file automatically and pip-installs everything into the image.
-
 # ── Scraping ──────────────────────────────
 requests==2.31.0
 beautifulsoup4==4.12.3
@@ -8,7 +5,7 @@ lxml==5.2.1
 fake-useragent==1.5.1
 
 # ── Kafka ─────────────────────────────────
-kafka-python==2.0.2
+kafka-python-ng==2.2.3
 
 # ── Database ──────────────────────────────
 psycopg2-binary==2.9.9
@@ -17,6 +14,3 @@ sqlalchemy==1.4.52
 # ── Data processing ───────────────────────
 pandas==2.2.2
 python-dotenv==1.0.1
-
-
-

@@ -24,3 +24,29 @@
 [2026-04-13T06:10:11.956+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
 [2026-04-13T06:10:12.011+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
 [2026-04-13T06:10:12.015+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2026-04-13T22:40:57.404+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-04-13T22:40:57.427+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: egyptian_job_market_pipeline.pipeline_summary scheduled__2026-04-12T06:00:00+00:00 [queued]>
+[2026-04-13T22:40:57.437+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: egyptian_job_market_pipeline.pipeline_summary scheduled__2026-04-12T06:00:00+00:00 [queued]>
+[2026-04-13T22:40:57.437+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 3
+[2026-04-13T22:40:57.451+0000] {taskinstance.py:2889} INFO - Executing <Task(PythonOperator): pipeline_summary> on 2026-04-12 06:00:00+00:00
+[2026-04-13T22:40:57.462+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'egyptian_job_market_pipeline', 'pipeline_summary', 'scheduled__2026-04-12T06:00:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/job_pipeline_dag.py', '--cfg-path', '/tmp/tmpb8fnd33v']
+[2026-04-13T22:40:57.466+0000] {standard_task_runner.py:105} INFO - Job 4: Subtask pipeline_summary
+[2026-04-13T22:40:57.469+0000] {logging_mixin.py:190} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=236) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-04-13T22:40:57.470+0000] {standard_task_runner.py:72} INFO - Started process 237 to run task
+[2026-04-13T22:40:57.549+0000] {task_command.py:467} INFO - Running <TaskInstance: egyptian_job_market_pipeline.pipeline_summary scheduled__2026-04-12T06:00:00+00:00 [running]> on host f81149854c66
+[2026-04-13T22:40:57.652+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='salma' AIRFLOW_CTX_DAG_ID='egyptian_job_market_pipeline' AIRFLOW_CTX_TASK_ID='pipeline_summary' AIRFLOW_CTX_EXECUTION_DATE='2026-04-12T06:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-04-12T06:00:00+00:00'
+[2026-04-13T22:40:57.653+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2026-04-13T22:40:57.725+0000] {job_pipeline_dag.py:293} INFO - =======================================================
+[2026-04-13T22:40:57.726+0000] {job_pipeline_dag.py:294} INFO - PIPELINE RUN SUMMARY — 2026-04-12
+[2026-04-13T22:40:57.727+0000] {job_pipeline_dag.py:295} INFO -   Raw jobs scraped  : 0
+[2026-04-13T22:40:57.727+0000] {job_pipeline_dag.py:296} INFO -   Published to Kafka: 0
+[2026-04-13T22:40:57.728+0000] {job_pipeline_dag.py:297} INFO -   Cleaned jobs      : 0
+[2026-04-13T22:40:57.728+0000] {job_pipeline_dag.py:298} INFO -   Staging files     : 0
+[2026-04-13T22:40:57.728+0000] {job_pipeline_dag.py:299} INFO -   Kafka mode        : unknown
+[2026-04-13T22:40:57.729+0000] {job_pipeline_dag.py:300} INFO - =======================================================
+[2026-04-13T22:40:57.729+0000] {python.py:240} INFO - Done. Returned value was: {'run_date': '2026-04-12', 'raw_jobs': 0, 'published': 0, 'cleaned': 0, 'staging_files': 0, 'kafka_mode': 'unknown'}
+[2026-04-13T22:40:57.761+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2026-04-13T22:40:57.762+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=egyptian_job_market_pipeline, task_id=pipeline_summary, run_id=scheduled__2026-04-12T06:00:00+00:00, execution_date=20260412T060000, start_date=20260413T224057, end_date=20260413T224057
+[2026-04-13T22:40:57.806+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-04-13T22:40:57.828+0000] {taskinstance.py:3895} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-04-13T22:40:57.830+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

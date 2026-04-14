@@ -40,9 +40,9 @@ from airflow.operators.empty import EmptyOperator
 # Dockerfile COPYs: scraper/ and Kafka/ → /usr/local/airflow/
 # data/ is mounted live via docker-compose.override.yml
 # PYTHONPATH is already set to /usr/local/airflow by the Dockerfile
-AIRFLOW_HOME = Path("/usr/local/airflow/project")
-PROJECT_ROOT = AIRFLOW_HOME
-sys.path.insert(0, str(AIRFLOW_HOME))
+AIRFLOW_HOME = Path("/opt/airflow")
+PROJECT_ROOT = AIRFLOW_HOME / "project"
+sys.path.insert(0, str(PROJECT_ROOT))
 
 logger = logging.getLogger(__name__)
 
@@ -87,21 +87,17 @@ def scrape_wuzzuf(**context) -> dict:
     for keyword in KEYWORDS:
         logger.info("Scraping keyword: '%s'", keyword)
         try:
-            # Try real scraper first (requires Playwright + internet)
             from scraper.wuzzuf_scraper import WuzzufScraper
-            scraper = WuzzufScraper(
-                keyword=keyword,
-                max_pages=MAX_PAGES,
-                output_dir=RAW_DIR,
-            )
-            scraper.run()
-            if scraper.jobs:
-                out = scraper.save()
-                scraped_files.append(str(out))
-                logger.info("Real scrape OK: %d jobs → %s", len(scraper.jobs), out.name)
-                scraper.close()
-                continue
-            scraper.close()
+            scraper = WuzzufScraper(keyword=keyword, max_pages=MAX_PAGES, output_dir=RAW_DIR)
+            try:                          # ← inner try/finally ensures close() always runs
+                scraper.run()
+                if scraper.jobs:
+                    out = scraper.save()
+                    scraped_files.append(str(out))
+                    logger.info("Real scrape OK: %d jobs → %s", len(scraper.jobs), out.name)
+                    continue
+            finally:
+                scraper.close()           # ← always closes browser, even on SIGTERM
         except Exception as exc:
             logger.warning("Real scraper failed (%s) — falling back to mock data", exc)
 
@@ -321,7 +317,7 @@ with DAG(
     t_scrape = PythonOperator(
         task_id="scrape_wuzzuf",
         python_callable=scrape_wuzzuf,
-        execution_timeout=timedelta(minutes=20),
+        execution_timeout=timedelta(minutes=45),
     )
 
     # ── Task 2: Validate ───────────────────────────────────────────────────────
