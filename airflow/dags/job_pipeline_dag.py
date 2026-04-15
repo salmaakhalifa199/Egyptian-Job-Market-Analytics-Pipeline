@@ -34,7 +34,6 @@ import sys
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator
-from airflow.operators.empty import EmptyOperator
 
 # ── Paths inside the Astro container ──────────────────────────────────────────
 # Dockerfile COPYs: scraper/ and Kafka/ → /usr/local/airflow/
@@ -87,17 +86,21 @@ def scrape_wuzzuf(**context) -> dict:
     for keyword in KEYWORDS:
         logger.info("Scraping keyword: '%s'", keyword)
         try:
+            # Try real scraper first (requires Playwright + internet)
             from scraper.wuzzuf_scraper import WuzzufScraper
-            scraper = WuzzufScraper(keyword=keyword, max_pages=MAX_PAGES, output_dir=RAW_DIR)
-            try:                          # ← inner try/finally ensures close() always runs
-                scraper.run()
-                if scraper.jobs:
-                    out = scraper.save()
-                    scraped_files.append(str(out))
-                    logger.info("Real scrape OK: %d jobs → %s", len(scraper.jobs), out.name)
-                    continue
-            finally:
-                scraper.close()           # ← always closes browser, even on SIGTERM
+            scraper = WuzzufScraper(
+                keyword=keyword,
+                max_pages=MAX_PAGES,
+                output_dir=RAW_DIR,
+            )
+            scraper.run()
+            if scraper.jobs:
+                out = scraper.save()
+                scraped_files.append(str(out))
+                logger.info("Real scrape OK: %d jobs → %s", len(scraper.jobs), out.name)
+                scraper.close()
+                continue
+            scraper.close()
         except Exception as exc:
             logger.warning("Real scraper failed (%s) — falling back to mock data", exc)
 
@@ -263,6 +266,49 @@ def consume_from_kafka(**context) -> dict:
     return {"total_cleaned": len(cleaned_jobs), "staging_files": len(staged_files)}
 
 
+def load_to_warehouse(**context) -> dict:
+    """
+    Task 5: Load cleaned staging files into PostgreSQL star schema.
+    Uses upsert logic — safe to re-run, no duplicate job_ids.
+    """
+    import psycopg2
+    from warehouse.loader import get_conn, ensure_schema, load_staging_file
+
+    staged_files = context["ti"].xcom_pull(
+        task_ids="consume_from_kafka", key="staged_files"
+    ) or []
+    run_id = context["run_id"]
+
+    if not staged_files:
+        logger.warning("No staged files to load — skipping warehouse load")
+        context["ti"].xcom_push(key="warehouse_inserted", value=0)
+        return {"inserted": 0, "skipped": 0}
+
+    logger.info("Connecting to PostgreSQL ...")
+    conn = get_conn()
+    ensure_schema(conn)
+
+    total_inserted = 0
+    total_skipped  = 0
+
+    for file_path in staged_files:
+        path = Path(file_path)
+        if not path.exists():
+            logger.warning("Staging file not found: %s", file_path)
+            continue
+        result = load_staging_file(conn, path, run_id=run_id)
+        total_inserted += result["inserted"]
+        total_skipped  += result["skipped"]
+
+    conn.close()
+    logger.info(
+        "Warehouse load complete. inserted=%d  skipped=%d",
+        total_inserted, total_skipped,
+    )
+    context["ti"].xcom_push(key="warehouse_inserted", value=total_inserted)
+    return {"inserted": total_inserted, "skipped": total_skipped}
+
+
 def pipeline_summary(**context) -> dict:
     """
     Task 5: Log a summary of the full pipeline run.
@@ -270,29 +316,32 @@ def pipeline_summary(**context) -> dict:
     """
     ti = context["ti"]
 
-    raw_jobs     = ti.xcom_pull(task_ids="validate_raw_data",   key="total_raw_jobs")   or 0
-    published    = ti.xcom_pull(task_ids="produce_to_kafka",    key="total_published")  or 0
-    cleaned      = ti.xcom_pull(task_ids="consume_from_kafka",  key="total_cleaned")    or 0
-    staged_files = ti.xcom_pull(task_ids="consume_from_kafka",  key="staged_files")     or []
-    mode         = ti.xcom_pull(task_ids="produce_to_kafka",    key="producer_mode")    or "unknown"
-    run_date     = context["ds"]
+    raw_jobs    = ti.xcom_pull(task_ids="validate_raw_data",  key="total_raw_jobs")      or 0
+    published   = ti.xcom_pull(task_ids="produce_to_kafka",   key="total_published")     or 0
+    cleaned     = ti.xcom_pull(task_ids="consume_from_kafka", key="total_cleaned")       or 0
+    staged_files= ti.xcom_pull(task_ids="consume_from_kafka", key="staged_files")        or []
+    mode        = ti.xcom_pull(task_ids="produce_to_kafka",   key="producer_mode")       or "unknown"
+    inserted    = ti.xcom_pull(task_ids="load_to_warehouse",  key="warehouse_inserted")  or 0
+    run_date    = context["ds"]
 
     summary = {
-        "run_date":        run_date,
-        "raw_jobs":        raw_jobs,
-        "published":       published,
-        "cleaned":         cleaned,
-        "staging_files":   len(staged_files),
-        "kafka_mode":      mode,
+        "run_date":         run_date,
+        "raw_jobs":         raw_jobs,
+        "published":        published,
+        "cleaned":          cleaned,
+        "staging_files":    len(staged_files),
+        "kafka_mode":       mode,
+        "warehouse_loaded": inserted,
     }
 
     logger.info("=" * 55)
     logger.info("PIPELINE RUN SUMMARY — %s", run_date)
-    logger.info("  Raw jobs scraped  : %d", raw_jobs)
-    logger.info("  Published to Kafka: %d", published)
-    logger.info("  Cleaned jobs      : %d", cleaned)
-    logger.info("  Staging files     : %d", len(staged_files))
-    logger.info("  Kafka mode        : %s", mode)
+    logger.info("  Raw jobs scraped   : %d", raw_jobs)
+    logger.info("  Published to Kafka : %d", published)
+    logger.info("  Cleaned jobs       : %d", cleaned)
+    logger.info("  Staging files      : %d", len(staged_files))
+    logger.info("  Kafka mode         : %s", mode)
+    logger.info("  Loaded to warehouse: %d", inserted)
     logger.info("=" * 55)
 
     return summary
@@ -317,7 +366,7 @@ with DAG(
     t_scrape = PythonOperator(
         task_id="scrape_wuzzuf",
         python_callable=scrape_wuzzuf,
-        execution_timeout=timedelta(minutes=45),
+        execution_timeout=timedelta(minutes=20),
     )
 
     # ── Task 2: Validate ───────────────────────────────────────────────────────
@@ -341,9 +390,11 @@ with DAG(
         execution_timeout=timedelta(minutes=10),
     )
 
-    # ── Task 5: Summary (placeholder for Phase 4 load task) ───────────────────
-    t_load = EmptyOperator(
-        task_id="load_to_warehouse",   # will be replaced in Phase 4
+    # ── Task 5: Load to warehouse ──────────────────────────────────────────────
+    t_load = PythonOperator(
+        task_id="load_to_warehouse",
+        python_callable=load_to_warehouse,
+        execution_timeout=timedelta(minutes=15),
     )
 
     # ── Task 6: Summary ────────────────────────────────────────────────────────
