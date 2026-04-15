@@ -35,19 +35,13 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-def _trim(value, max_len: int) -> str | None:
-    """Truncate a string to max_len, returning None if empty."""
-    if not value:
-        return None
-    return str(value)[:max_len]
-
 # ── Config ────────────────────────────────────────────────────────────────────
 DB_CONFIG = {
     "host":     os.getenv("POSTGRES_HOST", "postgres"),
     "port":     int(os.getenv("POSTGRES_PORT", "5432")),
-    "dbname":   os.getenv("POSTGRES_DB", "wuzzufdb"),
-    "user":     os.getenv("POSTGRES_USER", "postgres"),
-    "password": os.getenv("POSTGRES_PASSWORD", "postgres"),
+    "dbname":   os.getenv("POSTGRES_DB", "airflow"),
+    "user":     os.getenv("POSTGRES_USER", "airflow"),
+    "password": os.getenv("POSTGRES_PASSWORD", "airflow"),
 }
 STAGING_DIR = Path(os.getenv("STAGING_DATA_PATH", "data/staging"))
 SCHEMA      = "job_market"
@@ -189,6 +183,13 @@ def get_or_create_skill(cur, skill_name: str) -> int:
 
 # ── Fact loader ───────────────────────────────────────────────────────────────
 
+def _trim(value: str | None, max_length: int) -> str | None:
+    """Truncate string to max_length, return None if value is None."""
+    if value is None:
+        return None
+    return value[:max_length] if len(value) > max_length else value
+
+
 def load_job(cur, job: dict, run_id: str) -> int | None:
     """
     Insert or skip a single job into fact_job_postings.
@@ -222,21 +223,21 @@ def load_job(cur, job: dict, run_id: str) -> int | None:
         ON CONFLICT (job_id) DO NOTHING
         RETURNING posting_id
         """,
-        (
-             job.get("job_id"),
+       (
+            job.get("job_id"),
             company_id, location_id, experience_id, date_id,
             _trim(job.get("title"), 255),
-            _trim(job.get("job_type"), 100),      
+            _trim(job.get("job_type"), 50),
             _trim(job.get("keyword"), 50),
             job.get("skills_count", 0),
             job.get("days_ago"),
             job.get("url"),
-            _trim(job.get("posted_date_raw"), 50),
+            _trim(job.get("posted_date_raw"), 100),
             _trim(job.get("location_raw"), 255),
             job.get("scraped_at"),
             job.get("cleaned_at"),
             run_id,
-        ),
+      ),
     )
     row = cur.fetchone()
     return row[0] if row else None

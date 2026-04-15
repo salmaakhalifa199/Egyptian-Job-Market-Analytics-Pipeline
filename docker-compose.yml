@@ -16,36 +16,29 @@
 # ─────────────────────────────────────────────────────────────────────────────
 
 x-airflow-common: &airflow-common
-  build: .
+  build: .                           # ← uses our custom Dockerfile
   user: "50000:0"
   environment:
     AIRFLOW__CORE__EXECUTOR: LocalExecutor
-    # Airflow metadata DB — connects as the superuser (postgres) to the airflow DB
-    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:postgres@postgres/airflow
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
     AIRFLOW__CORE__FERNET_KEY: "46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLt0nIe3aI="
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "false"
     AIRFLOW__CORE__LOAD_EXAMPLES: "false"
     AIRFLOW__WEBSERVER__BASE_URL: "http://localhost:8080"
     AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "true"
-    # ── Logging: read directly from shared volume, no HTTP log serving ─────────
+    # ── Fix 3: read logs directly from shared volume (no HTTP log serving) ────
     AIRFLOW__LOGGING__REMOTE_LOGGING: "false"
     AIRFLOW__LOGGING__BASE_LOG_FOLDER: "/opt/airflow/logs"
     AIRFLOW__LOGGING__LOG_FETCH_TIMEOUT_SEC: "30"
-    AIRFLOW__CORE__HOSTNAME_CALLABLE: "airflow.utils.net.get_host_ip_address"
+    AIRFLOW__CORE__HOSTNAME_CALLABLE: "airflow.utils.net:get_host_ip_address"
     # ─────────────────────────────────────────────────────────────────────────
     PYTHONPATH: "/opt/airflow/project"
     KAFKA_BOOTSTRAP_SERVERS: "kafka:29092"
     KAFKA_TOPIC_RAW: "wuzzuf_raw_jobs"
-    # Warehouse DB credentials (used by loader.py)
-    POSTGRES_HOST: "postgres"
-    POSTGRES_PORT: "5432"
-    POSTGRES_DB: "wuzzufdb"
-    POSTGRES_USER: "postgres"
-    POSTGRES_PASSWORD: "postgres"
   volumes:
     - ./airflow/dags:/opt/airflow/dags
     - ./:/opt/airflow/project
-    - airflow-logs:/opt/airflow/logs
+    - airflow-logs:/opt/airflow/logs   # shared volume — webserver & scheduler both read here
   depends_on:
     postgres:
       condition: service_healthy
@@ -55,25 +48,21 @@ x-airflow-common: &airflow-common
 services:
 
   # ── PostgreSQL ───────────────────────────────────────────────────────────────
-  # Single Postgres instance hosts two databases:
-  #   - airflow   → Airflow metadata (managed by airflow-init)
-  #   - wuzzufdb  → Job market warehouse (managed by loader.py / schema.sql)
   postgres:
     image: postgres:15
     container_name: postgres
     networks:
       - pipeline-net
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres          # default DB; init script creates the two below
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
     ports:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
-      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh  # ← creates both DBs
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres"]
+      test: ["CMD", "pg_isready", "-U", "airflow"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -155,15 +144,16 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
-      KAFKA_LOG_RETENTION_MS: 86400000
+      # Fix 1: correct env var name for log retention
+      KAFKA_LOG_RETENTION_MS: 86400000          # ← was KAFKA_LOG_RETENTION_HOURS: 24
     volumes:
       - kafka-data:/var/lib/kafka/data
     healthcheck:
       test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
       interval: 15s
       timeout: 10s
-      retries: 10
-      start_period: 30s
+      retries: 10                               # ← was 5
+      start_period: 30s                         # ← added: gives Kafka time to boot
 
   # ── Kafka UI ─────────────────────────────────────────────────────────────────
   kafka-ui:

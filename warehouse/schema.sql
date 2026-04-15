@@ -8,7 +8,7 @@
 -- Bridge      : bridge_job_skill  (job ↔ skills many-to-many)
 --
 -- Run once:
---   docker exec -i postgres psql -U airflow -d job_market < warehouse/schema.sql
+--   docker exec -it postgres psql -U airflow -d airflow 
 -- ============================================================
 
 -- ── Create dedicated schema ───────────────────────────────────────────────────
@@ -78,8 +78,8 @@ CREATE TABLE IF NOT EXISTS fact_job_postings (
 
     -- Job attributes
     title           VARCHAR(255) NOT NULL,
-    job_type        VARCHAR(100),
-    keyword         VARCHAR(100),
+    job_type        VARCHAR(50),
+    keyword         VARCHAR(50),
     skills_count    SMALLINT    DEFAULT 0,
     days_ago        SMALLINT,
 
