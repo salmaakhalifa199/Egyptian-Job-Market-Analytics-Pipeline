@@ -28,7 +28,7 @@ from __future__ import annotations
 import json
 import logging
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta ,timezone
 from pathlib import Path
 import sys
 
@@ -260,18 +260,35 @@ def consume_from_kafka(**context) -> dict:
             raise RuntimeError(f"Kafka consumer failed: {exc}") from exc
 
     # Write to staging in batches of 50
-    BATCH_SIZE  = 50
-    batch_num   = 1
+    BATCH_SIZE = 50
+    batch_num = 1
     staged_files = []
+    timestamp_base = datetime.now().strftime("%Y%m%d_%H%M%S")
 
     for i in range(0, len(cleaned_jobs), BATCH_SIZE):
         batch = cleaned_jobs[i: i + BATCH_SIZE]
-        out   = write_batch(batch, batch_num)
-        staged_files.append(str(out))
+        
+        filename = f"staging_batch_{batch_num:04d}_{timestamp_base}.json"
+        out_path = STAGING_DIR / filename  # ← absolute path from DAG
+        
+        payload = {
+            "metadata": {
+                "batch_num": batch_num,
+                "job_count": len(batch),
+                "written_at": datetime.now(timezone.utc).isoformat(),
+                "stage": "cleaned",
+            },
+            "jobs": batch,
+        }
+        with open(out_path, "w", encoding="utf-8") as f:
+            json.dump(payload, f, ensure_ascii=False, indent=2)
+        
+        logger.info("Wrote batch %d (%d jobs) → %s", batch_num, len(batch), out_path)
+        staged_files.append(str(out_path))
         batch_num += 1
 
     logger.info("Wrote %d staging files", len(staged_files))
-    context["ti"].xcom_push(key="staged_files",  value=staged_files)
+    context["ti"].xcom_push(key="staged_files", value=staged_files)
     context["ti"].xcom_push(key="total_cleaned", value=len(cleaned_jobs))
     return {"total_cleaned": len(cleaned_jobs), "staging_files": len(staged_files)}
 
