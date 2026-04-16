@@ -17,13 +17,19 @@ Usage:
     python kafka/consumer.py --max 100     # stops after 100 messages
 """
 
+"""
+kafka/consumer.py
+──────────────────
+Consumes raw job messages from Kafka, cleans and normalises the data,
+then writes batches to data/staging/ as JSON files.
+"""
+
 import argparse
 import json
 import logging
 import os
 import re
 import signal
-import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -47,56 +53,57 @@ STAGING_DIR       = Path(os.getenv("STAGING_DATA_PATH", "data/staging"))
 BATCH_SIZE        = int(os.getenv("CONSUMER_BATCH_SIZE", "50"))
 GROUP_ID          = "job_pipeline_consumer_group"
 
-# Fields injected by producer that should not reach staging
-INTERNAL_FIELDS   = {"_source_file", "_pipeline_stage"}
+INTERNAL_FIELDS = {"_source_file", "_pipeline_stage"}
+
+
+# ── NEW: LOAD EXISTING JOB IDS ────────────────────────────────────────────────
+def load_existing_job_ids(staging_dir: Path) -> set:
+    existing_ids = set()
+
+    if not staging_dir.exists():
+        return existing_ids
+
+    for file in staging_dir.glob("staging_batch_*.json"):
+        try:
+            with open(file, encoding="utf-8") as f:
+                data = json.load(f)
+                for job in data.get("jobs", []):
+                    job_id = job.get("job_id")
+                    if job_id:
+                        existing_ids.add(job_id)
+        except Exception as e:
+            logger.warning("Error reading %s: %s", file, e)
+
+    logger.info("Loaded %d existing job_ids from staging", len(existing_ids))
+    return existing_ids
 
 
 # ── Cleaning functions ────────────────────────────────────────────────────────
-
 def clean_location(raw: str) -> str:
-    """
-    Extract a clean city name from raw location strings.
-    'Nasr City, Cairo, Egypt' → 'Cairo'
-    'Smart Village, Giza, Egypt' → 'Giza'
-    'Remote (Egypt)' → 'Remote'
-    'Remote' → 'Remote'
-    """
     if not raw or raw.lower() in ("unknown", ""):
         return "Unknown"
     raw = raw.strip()
     if raw.lower().startswith("remote"):
         return "Remote"
     parts = [p.strip() for p in raw.split(",")]
-    # Remove 'Egypt' suffix if present
     parts = [p for p in parts if p.lower() != "egypt"]
-    # Return the last meaningful part (usually the governorate)
     return parts[-1] if parts else raw
 
 
 def clean_experience(raw: str) -> dict:
-    """
-    Parse experience string into structured min/max years.
-    '2 - 4 Yrs of Exp'  → {'min_years': 2, 'max_years': 4, 'label': '2-4 years'}
-    '8+ Yrs of Exp'      → {'min_years': 8, 'max_years': None, 'label': '8+ years'}
-    '0 - 1 Yr of Exp'   → {'min_years': 0, 'max_years': 1, 'label': '0-1 years'}
-    'Not specified'      → {'min_years': None, 'max_years': None, 'label': 'Not specified'}
-    """
     if not raw or raw.lower() in ("not specified", "unknown", ""):
         return {"min_years": None, "max_years": None, "label": "Not specified"}
 
-    # Range pattern: "2 - 4 Yrs"
     range_match = re.search(r"(\d+)\s*-\s*(\d+)", raw)
     if range_match:
         mn, mx = int(range_match.group(1)), int(range_match.group(2))
         return {"min_years": mn, "max_years": mx, "label": f"{mn}-{mx} years"}
 
-    # Plus pattern: "8+ Yrs"
     plus_match = re.search(r"(\d+)\+", raw)
     if plus_match:
         mn = int(plus_match.group(1))
         return {"min_years": mn, "max_years": None, "label": f"{mn}+ years"}
 
-    # Single number fallback: "5 Yrs"
     single_match = re.search(r"(\d+)", raw)
     if single_match:
         mn = int(single_match.group(1))
@@ -106,28 +113,20 @@ def clean_experience(raw: str) -> dict:
 
 
 def clean_skills(raw_skills: list) -> list[str]:
-    """
-    Deduplicate and normalise a list of skill strings.
-    ['Python', 'python', ' SQL ', 'SQL'] → ['python', 'sql']
-    """
     if not isinstance(raw_skills, list):
         return []
     seen = set()
     result = []
     for skill in raw_skills:
         if isinstance(skill, str):
-            normalised = skill.strip().lower()
-            if normalised and normalised not in seen:
-                seen.add(normalised)
-                result.append(normalised)
+            s = skill.strip().lower()
+            if s and s not in seen:
+                seen.add(s)
+                result.append(s)
     return result
 
 
 def parse_days_ago(raw: str) -> int | None:
-    """
-    Convert 'X days ago' / 'X weeks ago' / 'X month ago' → integer days.
-    Returns None if unparseable.
-    """
     if not raw:
         return None
     raw = raw.lower().strip()
@@ -142,37 +141,28 @@ def parse_days_ago(raw: str) -> int | None:
 
 
 def clean_job(raw: dict) -> dict:
-    """
-    Apply all cleaning steps to a raw job dict.
-    Returns a cleaned job dict ready for staging.
-    """
     exp = clean_experience(raw.get("experience", ""))
 
     cleaned = {
-        # Identity
-        "job_id":          raw.get("job_id", ""),
-        "url":             raw.get("url", ""),
-        "keyword":         raw.get("keyword", ""),
-        # Core fields
-        "title":           (raw.get("title") or "").strip(),
-        "company":         (raw.get("company") or "Unknown").strip(),
-        "job_type":        (raw.get("job_type") or "Unknown").strip(),
-        # Cleaned / enriched fields
-        "location_raw":    raw.get("location", ""),
-        "location_city":   clean_location(raw.get("location", "")),
-        "skills":          clean_skills(raw.get("skills", [])),
-        "skills_count":    len(clean_skills(raw.get("skills", []))),
+        "job_id": raw.get("job_id", ""),
+        "url": raw.get("url", ""),
+        "keyword": raw.get("keyword", ""),
+        "title": (raw.get("title") or "").strip(),
+        "company": (raw.get("company") or "Unknown").strip(),
+        "job_type": (raw.get("job_type") or "Unknown").strip(),
+        "location_raw": raw.get("location", ""),
+        "location_city": clean_location(raw.get("location", "")),
+        "skills": clean_skills(raw.get("skills", [])),
+        "skills_count": len(clean_skills(raw.get("skills", []))),
         "experience_label": exp["label"],
-        "experience_min":   exp["min_years"],
-        "experience_max":   exp["max_years"],
-        "days_ago":         parse_days_ago(raw.get("posted_date", "")),
-        "posted_date_raw":  raw.get("posted_date", ""),
-        # Timestamps
-        "scraped_at":      raw.get("scraped_at", ""),
-        "cleaned_at":      datetime.now(timezone.utc).isoformat(),
+        "experience_min": exp["min_years"],
+        "experience_max": exp["max_years"],
+        "days_ago": parse_days_ago(raw.get("posted_date", "")),
+        "posted_date_raw": raw.get("posted_date", ""),
+        "scraped_at": raw.get("scraped_at", ""),
+        "cleaned_at": datetime.now(timezone.utc).isoformat(),
     }
 
-    # Strip any internal pipeline fields if they leaked in
     for field in INTERNAL_FIELDS:
         cleaned.pop(field, None)
 
@@ -180,9 +170,7 @@ def clean_job(raw: dict) -> dict:
 
 
 # ── Batch writer ──────────────────────────────────────────────────────────────
-
 def write_batch(batch: list[dict], batch_num: int) -> Path:
-    """Write a batch of cleaned jobs to data/staging/ as a JSON file."""
     STAGING_DIR.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"staging_batch_{batch_num:04d}_{timestamp}.json"
@@ -190,101 +178,100 @@ def write_batch(batch: list[dict], batch_num: int) -> Path:
 
     payload = {
         "metadata": {
-            "batch_num":  batch_num,
-            "job_count":  len(batch),
+            "batch_num": batch_num,
+            "job_count": len(batch),
             "written_at": datetime.now(timezone.utc).isoformat(),
-            "stage":      "cleaned",
+            "stage": "cleaned",
         },
         "jobs": batch,
     }
+
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
 
-    logger.info("Wrote batch %d (%d jobs) → %s", batch_num, len(batch), out_path)
+    logger.info("Wrote batch %d (%d jobs) → %s", batch_num, len(batch), out_path.resolve())
     return out_path
 
 
 # ── Consumer factory ──────────────────────────────────────────────────────────
-
 def make_consumer() -> KafkaConsumer:
-    """Create and return a KafkaConsumer."""
     return KafkaConsumer(
         TOPIC_RAW,
         bootstrap_servers=BOOTSTRAP_SERVERS,
         group_id=GROUP_ID,
         value_deserializer=lambda m: json.loads(m.decode("utf-8")),
-        auto_offset_reset="earliest",    # start from beginning if no committed offset
+        auto_offset_reset="earliest",
         enable_auto_commit=True,
-        auto_commit_interval_ms=1000,
         max_poll_records=BATCH_SIZE,
-        consumer_timeout_ms=5000,        # stop polling after 5s of no messages
+        consumer_timeout_ms=5000,
     )
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
-
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Kafka consumer — cleans raw job messages")
-    parser.add_argument(
-        "--max", type=int, default=None,
-        help="Stop after consuming this many messages (default: run until no messages)"
-    )
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--max", type=int, default=None)
     return parser.parse_args()
 
 
 def main():
     args = parse_args()
 
-    logger.info("Connecting to Kafka at %s, topic '%s' ...", BOOTSTRAP_SERVERS, TOPIC_RAW)
     try:
         consumer = make_consumer()
     except NoBrokersAvailable:
-        logger.error(
-            "Cannot connect to Kafka at %s. "
-            "Start Kafka first: docker-compose up -d",
-            BOOTSTRAP_SERVERS,
-        )
+        logger.error("Kafka not running")
         return
 
-    # Graceful shutdown on Ctrl+C
+    # ✅ LOAD EXISTING IDS
+    existing_ids = load_existing_job_ids(STAGING_DIR)
+
     running = True
-    def _shutdown(sig, frame):  # noqa: ANN001
+    def shutdown(sig, frame):
         nonlocal running
-        logger.info("Shutdown signal received — flushing final batch ...")
         running = False
-    signal.signal(signal.SIGINT, _shutdown)
-    signal.signal(signal.SIGTERM, _shutdown)
 
-    batch: list[dict] = []
-    total_consumed = 0
+    signal.signal(signal.SIGINT, shutdown)
+
+    batch = []
+    total_new = 0
+    skipped = 0
     batch_num = 1
-
-    logger.info("Consumer started. Waiting for messages (Ctrl+C to stop)...")
 
     for message in consumer:
         if not running:
             break
 
-        raw_job = message.value
-        cleaned  = clean_job(raw_job)
+        cleaned = clean_job(message.value)
+        job_id = cleaned.get("job_id")
+
+        # ✅ DEDUP
+        if job_id and job_id in existing_ids:
+            skipped += 1
+            continue
+
         batch.append(cleaned)
-        total_consumed += 1
+
+        if job_id:
+            existing_ids.add(job_id)
+
+        total_new += 1
 
         if len(batch) >= BATCH_SIZE:
             write_batch(batch, batch_num)
             batch_num += 1
             batch = []
 
-        if args.max and total_consumed >= args.max:
-            logger.info("Reached --max limit of %d messages.", args.max)
+        if args.max and total_new >= args.max:
             break
 
-    # Flush remaining messages
     if batch:
         write_batch(batch, batch_num)
 
     consumer.close()
-    logger.info("Consumer stopped. Total messages processed: %d", total_consumed)
+
+    logger.info("New jobs written: %d", total_new)
+    logger.info("Duplicates skipped: %d", skipped)
 
 
 if __name__ == "__main__":

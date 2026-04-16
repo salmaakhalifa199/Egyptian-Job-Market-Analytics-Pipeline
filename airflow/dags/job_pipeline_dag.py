@@ -76,17 +76,26 @@ def scrape_wuzzuf(**context) -> dict:
     """
     Task 1: Scrape job listings from Wuzzuf for all keywords.
     Uses the mock generator when Wuzzuf is unreachable (CI/offline mode).
+
+    Each keyword writes to ONE fixed file (wuzzuf_<keyword>.json).
+    New jobs are merged in by job_id; existing jobs are updated.
     Pushes scraped file paths to XCom for downstream tasks.
     """
+    import re
     from scraper.mock_data_generator import generate
 
     RAW_DIR.mkdir(parents=True, exist_ok=True)
     scraped_files = []
 
+    def _kw_slug(kw: str) -> str:
+        return re.sub(r"[^a-z0-9]+", "_", kw.lower()).strip("_")
+
     for keyword in KEYWORDS:
-        logger.info("Scraping keyword: '%s'", keyword)
+        # Fixed filename — same path on every DAG run
+        fixed_path = RAW_DIR / f"wuzzuf_{_kw_slug(keyword)}.json"
+
+        logger.info("Scraping keyword: '%s' → %s", keyword, fixed_path.name)
         try:
-            # Try real scraper first (requires Playwright + internet)
             from scraper.wuzzuf_scraper import WuzzufScraper
             scraper = WuzzufScraper(
                 keyword=keyword,
@@ -95,23 +104,24 @@ def scrape_wuzzuf(**context) -> dict:
             )
             scraper.run()
             if scraper.jobs:
-                out = scraper.save()
+                out = scraper.save()          # save() now does the upsert
                 scraped_files.append(str(out))
-                logger.info("Real scrape OK: %d jobs → %s", len(scraper.jobs), out.name)
+                logger.info(
+                    "Real scrape OK: %d new/updated jobs → %s",
+                    len(scraper.jobs), out.name,
+                )
                 scraper.close()
                 continue
             scraper.close()
         except Exception as exc:
             logger.warning("Real scraper failed (%s) — falling back to mock data", exc)
 
-        # Fallback: mock data (works offline / in CI)
+        # Fallback: mock data (upserts into the same fixed file)
         out = generate(keyword=keyword, count=45, output_dir=RAW_DIR)
         scraped_files.append(str(out))
-        logger.info("Mock data generated: %s", out.name)
+        logger.info("Mock data generated/updated: %s", out.name)
 
     logger.info("Scraping complete. Files: %d", len(scraped_files))
-
-    # Push to XCom so downstream tasks know which files to process
     context["ti"].xcom_push(key="scraped_files", value=scraped_files)
     return {"scraped_files": scraped_files, "total_keywords": len(KEYWORDS)}
 

@@ -516,28 +516,62 @@ class WuzzufScraper:
 
     # ── Output ────────────────────────────────────────────────────────────────
     def save(self) -> Path:
+        """
+        Persist scraped jobs to a FIXED file per keyword (no timestamp).
+        Upsert logic:
+          - Existing job_ids → update mutable fields (scraped_at, skills, etc.)
+          - New job_ids      → append
+        """
         self.output_dir.mkdir(parents=True, exist_ok=True)
-
+ 
         keyword_slug = re.sub(r"[^a-z0-9]+", "_", self.keyword.lower()).strip("_")
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"wuzzuf_{keyword_slug}_{timestamp}.json"
-        output_path = self.output_dir / filename
-
+        filename     = f"wuzzuf_{keyword_slug}.json"          # ← fixed, no timestamp
+        output_path  = self.output_dir / filename
+ 
+        # ── Load existing file ───────────────────────────────────────────────
+        existing_jobs: dict[str, dict] = {}
+        if output_path.exists():
+            try:
+                with open(output_path, encoding="utf-8") as f:
+                    old_data = json.load(f)
+                for job in old_data.get("jobs", []):
+                    existing_jobs[job["job_id"]] = job
+            except (json.JSONDecodeError, KeyError):
+                logger.warning("Existing file %s was unreadable — starting fresh.", filename)
+ 
+        # ── Upsert ──────────────────────────────────────────────────────────
+        updated  = 0
+        appended = 0
+        for job in self.jobs:
+            if job["job_id"] in existing_jobs:
+                existing_jobs[job["job_id"]].update(job)   # refresh all fields
+                updated += 1
+            else:
+                existing_jobs[job["job_id"]] = job
+                appended += 1
+ 
+        merged_jobs = list(existing_jobs.values())
+ 
         payload = {
             "metadata": {
-                "keyword":       self.keyword,
-                "total_jobs":    len(self.jobs),
-                "pages_scraped": self.max_pages,
-                "saved_at":      datetime.now(timezone.utc).isoformat(),
-                "source":        "wuzzuf.net",
+                "keyword":        self.keyword,
+                "total_jobs":     len(merged_jobs),
+                "pages_scraped":  self.max_pages,
+                "last_updated":   datetime.now(timezone.utc).isoformat(),
+                "updated_count":  updated,
+                "appended_count": appended,
+                "source":         "wuzzuf.net",
             },
-            "jobs": self.jobs,
+            "jobs": merged_jobs,
         }
-
+ 
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(payload, f, ensure_ascii=False, indent=2)
-
-        logger.info(f"Saved {len(self.jobs)} jobs → {output_path}")
+ 
+        logger.info(
+            "Saved %s → %s  (updated=%d  appended=%d  total=%d)",
+            filename, output_path, updated, appended, len(merged_jobs),
+        )
         return output_path
 
 
