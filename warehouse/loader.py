@@ -26,7 +26,7 @@ from dotenv import load_dotenv
 import psycopg2
 from psycopg2.extras import execute_values
 
-load_dotenv(dotenv_path=Path("config/.env"))
+load_dotenv(dotenv_path=Path("./config/.env"))
 
 logging.basicConfig(
     level=logging.INFO,
@@ -36,13 +36,16 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # ── Config ────────────────────────────────────────────────────────────────────
+
 DB_CONFIG = {
-    "host":     os.getenv("POSTGRES_HOST", "postgres"),
-    "port":     int(os.getenv("POSTGRES_PORT", "5432")),
-    "dbname":   os.getenv("POSTGRES_DB", "airflow"),
-    "user":     os.getenv("POSTGRES_USER", "airflow"),
-    "password": os.getenv("POSTGRES_PASSWORD", "airflow"),
+    "host": os.getenv("POSTGRES_HOST"),
+    "port": int(os.getenv("POSTGRES_PORT", "5432")),
+    "dbname": os.getenv("POSTGRES_DB"),
+    "user": os.getenv("POSTGRES_USER"),
+    "password": os.getenv("POSTGRES_PASSWORD"),
+    "sslmode": "require",  # ← Neon requires SSL
 }
+
 STAGING_DIR = Path(os.getenv("STAGING_DATA_PATH", "data/staging"))
 SCHEMA      = "job_market"
 
@@ -91,7 +94,10 @@ def get_or_create_location(cur, city: str, location_raw: str) -> int:
 
 
 def get_experience_id(cur, label: str) -> int:
-    """Match experience label to dim_experience, inserting if unknown."""
+    """Match experience label to dim_experience, inserting with correct level if unknown."""
+    if not label or label.lower() in ("not specified", "unknown", ""):
+        label = "Not specified"
+
     cur.execute(
         f"SELECT experience_id FROM {SCHEMA}.dim_experience WHERE label = %s",
         (label,),
@@ -99,22 +105,47 @@ def get_experience_id(cur, label: str) -> int:
     row = cur.fetchone()
     if row:
         return row[0]
-    # Insert unknown label
+
+    # Parse the label to determine level automatically
+    import re
+    min_years = None
+    max_years = None
+    level = "unknown"
+
+    range_match = re.search(r"(\d+)-(\d+)", label)
+    plus_match = re.search(r"(\d+)\+", label)
+    single_match = re.search(r"^(\d+)\s*years?$", label)
+
+    if range_match:
+        min_years = int(range_match.group(1))
+        max_years = int(range_match.group(2))
+    elif plus_match:
+        min_years = int(plus_match.group(1))
+    elif single_match:
+        min_years = int(single_match.group(1))
+        max_years = min_years
+
+    if min_years is not None:
+        if min_years <= 1:
+            level = "entry"
+        elif min_years <= 4:
+            level = "mid"
+        elif min_years <= 7:
+            level = "senior"
+        else:
+            level = "lead"
+
     cur.execute(
         f"""
         INSERT INTO {SCHEMA}.dim_experience (label, min_years, max_years, level)
-        VALUES (%s, NULL, NULL, 'unknown')
-        ON CONFLICT (label) DO NOTHING
+        VALUES (%s, %s, %s, %s)
+        ON CONFLICT (label) DO UPDATE SET
+            min_years = EXCLUDED.min_years,
+            max_years = EXCLUDED.max_years,
+            level = EXCLUDED.level
         RETURNING experience_id
         """,
-        (label,),
-    )
-    row = cur.fetchone()
-    if row:
-        return row[0]
-    cur.execute(
-        f"SELECT experience_id FROM {SCHEMA}.dim_experience WHERE label = %s",
-        (label,),
+        (label, min_years, max_years, level),
     )
     return cur.fetchone()[0]
 
