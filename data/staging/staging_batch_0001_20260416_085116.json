@@ -1,9 +1,8 @@
 {
   "metadata": {
-    "batch_num": 1,
-    "job_count": 50,
-    "written_at": "2026-04-16T08:09:07.084976+00:00",
-    "stage": "cleaned"
+    "batch": 1,
+    "count": 50,
+    "written_at": "2026-04-16T08:51:16.747728+00:00"
   },
   "jobs": [
     {
@@ -18,13 +17,13 @@
       "skills": [
         "vertex technologies -",
         "experienced",
-        "· it/software development",
+        "\u00b7 it/software development",
         "data engineering",
-        "· python",
-        "· scala",
+        "\u00b7 python",
+        "\u00b7 scala",
         "databricks",
-        "· snowflake",
-        "· sql",
+        "\u00b7 snowflake",
+        "\u00b7 sql",
         "relational databases"
       ],
       "skills_count": 10,
@@ -33,8 +32,8 @@
       "experience_max": null,
       "days_ago": 0,
       "posted_date_raw": "Middle Data Engineer\nVertex Technologies - Cairo, Egypt\n21 hours ago",
-      "scraped_at": "2026-04-16T08:06:35.983734+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076606+00:00"
+      "scraped_at": "2026-04-16T08:47:26.016565+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.698245+00:00"
     },
     {
       "job_id": "dw9vbculsh2b-senior-data-engineer-vertex-technologies-cairo-egypt",
@@ -48,14 +47,14 @@
       "skills": [
         "vertex technologies -",
         "experienced",
-        "· it/software development",
+        "\u00b7 it/software development",
         "data engineering",
-        "· python",
-        "· scala",
+        "\u00b7 python",
+        "\u00b7 scala",
         "databricks",
-        "· sql",
-        "· dimensional modeling",
-        "· oltp/olap"
+        "\u00b7 sql",
+        "\u00b7 dimensional modeling",
+        "\u00b7 oltp/olap"
       ],
       "skills_count": 10,
       "experience_label": "4+ years",
@@ -63,8 +62,8 @@
       "experience_max": null,
       "days_ago": 0,
       "posted_date_raw": "Senior Data Engineer\nVertex Technologies - Cairo, Egypt\n21 hours ago",
-      "scraped_at": "2026-04-16T08:06:35.983734+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076654+00:00"
+      "scraped_at": "2026-04-16T08:47:26.016565+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.698506+00:00"
     },
     {
       "job_id": "beqgj9o9kpfk-data-engineer-hyundai-rotem-cairo-egypt",
@@ -78,12 +77,12 @@
       "skills": [
         "hyundai rotem -",
         "entry level",
-        "· analyst/research",
+        "\u00b7 analyst/research",
         "engineering",
-        "· computer science",
-        "· english",
-        "· communication skills",
-        "· icdl",
+        "\u00b7 computer science",
+        "\u00b7 english",
+        "\u00b7 communication skills",
+        "\u00b7 icdl",
         "computer engineering",
         "data engineering",
         "data modeling"
@@ -94,8 +93,8 @@
       "experience_max": 3,
       "days_ago": 18,
       "posted_date_raw": "Data Engineer\nHyundai Rotem - Cairo, Egypt\n18 days ago",
-      "scraped_at": "2026-04-16T08:06:35.983734+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076675+00:00"
+      "scraped_at": "2026-04-16T08:47:26.016565+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.698568+00:00"
     },
     {
       "job_id": "bitfhi15bemy-data-center-engineer-compute-storage-data-protection-cairo-egypt",
@@ -108,15 +107,15 @@
       "location_city": "Cairo",
       "skills": [
         "experienced",
-        "· it/software development",
+        "\u00b7 it/software development",
         "data center",
-        "· cisco ucs",
-        "· nutanix",
-        "· storage",
-        "· backup",
-        "· veeam",
-        "· pure storage",
-        "· hci"
+        "\u00b7 cisco ucs",
+        "\u00b7 nutanix",
+        "\u00b7 storage",
+        "\u00b7 backup",
+        "\u00b7 veeam",
+        "\u00b7 pure storage",
+        "\u00b7 hci"
       ],
       "skills_count": 10,
       "experience_label": "6-10 years",
@@ -124,8 +123,8 @@
       "experience_max": 10,
       "days_ago": 19,
       "posted_date_raw": "Data Center Engineer (Compute, Storage & Data Protection)\nConfidential - New Capital, Cairo, Egypt\n19 days ago",
-      "scraped_at": "2026-04-16T08:06:35.983734+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076693+00:00"
+      "scraped_at": "2026-04-16T08:47:26.016565+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.698635+00:00"
     },
     {
       "job_id": "mc8ehc6xddfq-infrastructure-network-operations-engineer-data-center-wan-cairo-egypt",
@@ -138,15 +137,15 @@
       "location_city": "Cairo",
       "skills": [
         "experienced",
-        "· it/software development",
-        "· cisco aci",
+        "\u00b7 it/software development",
+        "\u00b7 cisco aci",
         "data center networking",
-        "· wan",
-        "· mpls",
-        "· sd-wan",
-        "· bgp",
-        "· ospf",
-        "· routing & switching"
+        "\u00b7 wan",
+        "\u00b7 mpls",
+        "\u00b7 sd-wan",
+        "\u00b7 bgp",
+        "\u00b7 ospf",
+        "\u00b7 routing & switching"
       ],
       "skills_count": 10,
       "experience_label": "7-10 years",
@@ -154,14 +153,14 @@
       "experience_max": 10,
       "days_ago": 19,
       "posted_date_raw": "Infrastructure Network Operations Engineer (Data Center & WAN)\nConfidential - New Capital, Cairo, Egypt\n19 days ago",
-      "scraped_at": "2026-04-16T08:06:35.983734+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076711+00:00"
+      "scraped_at": "2026-04-16T08:47:26.016565+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.698687+00:00"
     },
     {
       "job_id": "x8tb3ijdep9x-senior-sales-engineer-data-centers-mission-critical-infrastructure-mobi-egypt-cairo-egypt",
       "url": "https://wuzzuf.net/jobs/p/x8tb3ijdep9x-senior-sales-engineer-data-centers-mission-critical-infrastructure-mobi-egypt-cairo-egypt",
       "keyword": "data engineer",
-      "title": "Senior Sales Engineer – Data Centers & Mission-Critical Infrastructure",
+      "title": "Senior Sales Engineer \u2013 Data Centers & Mission-Critical Infrastructure",
       "company": "Mobi Egypt",
       "job_type": "Full Time",
       "location_raw": "Maadi, Cairo, Egypt",
@@ -169,28 +168,28 @@
       "skills": [
         "mobi egypt -",
         "experienced",
-        "· b2b sales",
-        "· rfp",
-        "· rfq",
-        "· negotiation",
-        "· contract structure",
-        "· market trends",
-        "· network infrastructure",
-        "· power solutions"
+        "\u00b7 b2b sales",
+        "\u00b7 rfp",
+        "\u00b7 rfq",
+        "\u00b7 negotiation",
+        "\u00b7 contract structure",
+        "\u00b7 market trends",
+        "\u00b7 network infrastructure",
+        "\u00b7 power solutions"
       ],
       "skills_count": 10,
       "experience_label": "3-7 years",
       "experience_min": 3,
       "experience_max": 7,
       "days_ago": 30,
-      "posted_date_raw": "Senior Sales Engineer – Data Centers & Mission-Critical Infrastructure\nMobi Egypt - Maadi, Cairo, Egypt\n1 month ago",
-      "scraped_at": "2026-04-16T08:06:35.983734+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076734+00:00"
+      "posted_date_raw": "Senior Sales Engineer \u2013 Data Centers & Mission-Critical Infrastructure\nMobi Egypt - Maadi, Cairo, Egypt\n1 month ago",
+      "scraped_at": "2026-04-16T08:47:26.016565+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.698743+00:00"
     },
     {
       "job_id": "hif824t4axxr-data-scientist-and-machine-learning-engineer-applied-ai-knowledge-sharing-epsilonai-cairo-egypt",
       "url": "https://wuzzuf.net/jobs/p/hif824t4axxr-data-scientist-and-machine-learning-engineer-applied-ai-knowledge-sharing-epsilonai-cairo-egypt",
-      "keyword": "data engineer",
+      "keyword": "machine learning",
       "title": "Data Scientist And Machine learning Engineer - Applied AI & Knowledge Sharing",
       "company": "EpsilonAI",
       "job_type": "Full Time",
@@ -199,15 +198,15 @@
       "skills": [
         "epsilonai -",
         "entry level",
-        "· it/software development",
-        "data science",
-        "· machine learning",
-        "· python programming",
-        "· teaching & instruction",
-        "· curriculum development",
-        "· statistical analysis",
-        "· communication",
-        "· ai tools & frameworks"
+        "\u00b7 it/software development",
+        "\u00b7 data science",
+        "machine learning",
+        "\u00b7 python programming",
+        "\u00b7 teaching & instruction",
+        "\u00b7 curriculum development",
+        "\u00b7 statistical analysis",
+        "\u00b7 communication",
+        "\u00b7 ai tools & frameworks"
       ],
       "skills_count": 11,
       "experience_label": "0-3 years",
@@ -215,8 +214,8 @@
       "experience_max": 3,
       "days_ago": 30,
       "posted_date_raw": "Data Scientist And Machine learning Engineer - Applied AI & Knowledge Sharing\nEpsilonAI - Nasr City, Cairo, Egypt\n1 month ago",
-      "scraped_at": "2026-04-16T08:06:35.983734+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076759+00:00"
+      "scraped_at": "2026-04-16T08:49:10.474659+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699921+00:00"
     },
     {
       "job_id": "r1yxretv7hyo-ai-data-science-engineer-raya-distribution-cairo-egypt",
@@ -230,14 +229,14 @@
       "skills": [
         "raya distribution -",
         "entry level",
-        "· it/software development",
-        "· ai",
+        "\u00b7 it/software development",
+        "\u00b7 ai",
         "computer engineering",
-        "· computer science",
+        "\u00b7 computer science",
         "data science",
         "software engineering",
-        "· python",
-        "· sql"
+        "\u00b7 python",
+        "\u00b7 sql"
       ],
       "skills_count": 10,
       "experience_label": "1+ years",
@@ -245,8 +244,8 @@
       "experience_max": null,
       "days_ago": 30,
       "posted_date_raw": "AI & Data Science Engineer\nRaya Distribution - Cairo, Egypt\n1 month ago",
-      "scraped_at": "2026-04-16T08:06:35.983734+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076778+00:00"
+      "scraped_at": "2026-04-16T08:47:26.016565+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.698843+00:00"
     },
     {
       "job_id": "laprqjalr4h6-senior-security-engineer-security-team-lead-anzemah-giza-egypt",
@@ -260,22 +259,22 @@
       "skills": [
         "anzemah -",
         "manager",
-        "· it/software development",
-        "· design",
+        "\u00b7 it/software development",
+        "\u00b7 design",
         "computer engineering",
-        "· computer science",
-        "· security",
+        "\u00b7 computer science",
+        "\u00b7 security",
         "engineering",
-        "· fortinet firewall"
+        "\u00b7 fortinet firewall"
       ],
       "skills_count": 9,
       "experience_label": "5-15 years",
       "experience_min": 5,
       "experience_max": 15,
       "days_ago": 0,
-      "posted_date_raw": "Senior Security Engineer / Security Team Lead\nAnzemah - Giza, Egypt\n4 hours ago",
-      "scraped_at": "2026-04-16T08:06:35.983734+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076794+00:00"
+      "posted_date_raw": "Senior Security Engineer / Security Team Lead\nAnzemah - Giza, Egypt\n5 hours ago",
+      "scraped_at": "2026-04-16T08:47:26.016565+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.698886+00:00"
     },
     {
       "job_id": "wobpk6dqvtvq-cost-estimation-engineer-procurement-aswaq-cairo-egypt",
@@ -289,11 +288,11 @@
       "skills": [
         "aswaq -",
         "experienced",
-        "· purchasing/procurement",
-        "· cost estimation",
+        "\u00b7 purchasing/procurement",
+        "\u00b7 cost estimation",
         "engineering",
-        "· construction",
-        "· procurement",
+        "\u00b7 construction",
+        "\u00b7 procurement",
         "civil engineering",
         "mechanical engineering",
         "electrical engineering"
@@ -304,8 +303,8 @@
       "experience_max": 8,
       "days_ago": 9,
       "posted_date_raw": "Cost Estimation Engineer (procurement)\nAswaq - Shorouk City, Cairo, Egypt\n9 days ago",
-      "scraped_at": "2026-04-16T08:06:35.983734+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076812+00:00"
+      "scraped_at": "2026-04-16T08:47:26.016565+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.698947+00:00"
     },
     {
       "job_id": "4btyvccc9toh-traffic-engineer-seero-cairo-egypt",
@@ -319,15 +318,15 @@
       "skills": [
         "seero -",
         "experienced",
-        "· creative/design/art",
-        "· engineering - other",
+        "\u00b7 creative/design/art",
+        "\u00b7 engineering - other",
         "engineering",
-        "· vissim",
+        "\u00b7 vissim",
         "traffic engineering",
-        "· transportation planning",
+        "\u00b7 transportation planning",
         "data analysis",
-        "· autocad",
-        "· gis"
+        "\u00b7 autocad",
+        "\u00b7 gis"
       ],
       "skills_count": 11,
       "experience_label": "3-7 years",
@@ -335,8 +334,8 @@
       "experience_max": 7,
       "days_ago": 9,
       "posted_date_raw": "Traffic Engineer\nSeero - Cairo, Egypt\n9 days ago",
-      "scraped_at": "2026-04-16T08:06:35.983734+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076828+00:00"
+      "scraped_at": "2026-04-16T08:47:26.016565+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699005+00:00"
     },
     {
       "job_id": "novce4xad1pv-senior-sales-engineer-mobi-egypt-cairo-egypt",
@@ -351,14 +350,14 @@
         "mobi egypt -",
         "experienced",
         "data centers & mission",
-        "· critical infrastructure",
-        "· b2b sales pipeline",
-        "· rfp/rfq",
-        "· project acquisition",
+        "\u00b7 critical infrastructure",
+        "\u00b7 b2b sales pipeline",
+        "\u00b7 rfp/rfq",
+        "\u00b7 project acquisition",
         "engineering",
         "electrical engineering",
         "mechanical engineering",
-        "· sales"
+        "\u00b7 sales"
       ],
       "skills_count": 11,
       "experience_label": "3-7 years",
@@ -366,13 +365,13 @@
       "experience_max": 7,
       "days_ago": 11,
       "posted_date_raw": "Senior Sales Engineer\nMobi Egypt - Maadi, Cairo, Egypt\n11 days ago",
-      "scraped_at": "2026-04-16T08:06:35.983734+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076843+00:00"
+      "scraped_at": "2026-04-16T08:47:26.016565+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699069+00:00"
     },
     {
       "job_id": "0jlu7uzk7kis-ai-engineer-cairo-egypt",
       "url": "https://wuzzuf.net/jobs/p/0jlu7uzk7kis-ai-engineer-cairo-egypt",
-      "keyword": "data engineer",
+      "keyword": "machine learning",
       "title": "AI Engineer",
       "company": "Experienced",
       "job_type": "Full Time",
@@ -380,14 +379,14 @@
       "location_city": "Cairo",
       "skills": [
         "experienced",
-        "· business development",
-        "· it/software development",
-        "· algorithms",
-        "· software development",
-        "· python",
-        "· ai",
-        "automation engineering",
-        "· workflow architect"
+        "\u00b7 business development",
+        "\u00b7 it/software development",
+        "\u00b7 algorithms",
+        "\u00b7 software development",
+        "\u00b7 python",
+        "\u00b7 ai",
+        "\u00b7 automation engineering",
+        "\u00b7 workflow architect"
       ],
       "skills_count": 9,
       "experience_label": "2-3 years",
@@ -395,8 +394,8 @@
       "experience_max": 3,
       "days_ago": 8,
       "posted_date_raw": "AI Engineer\nConfidential - Sheraton, Cairo, Egypt\n8 days ago",
-      "scraped_at": "2026-04-16T08:06:35.983734+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076858+00:00"
+      "scraped_at": "2026-04-16T08:49:10.474659+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700027+00:00"
     },
     {
       "job_id": "ng7jqijknicw-mechanical-production-engineer-ilock-dakahlia-egypt",
@@ -410,10 +409,10 @@
       "skills": [
         "ilock -",
         "experienced",
-        "· production process",
+        "\u00b7 production process",
         "data analysis",
-        "· project management",
-        "· problem solving",
+        "\u00b7 project management",
+        "\u00b7 problem solving",
         "manufacturing engineering"
       ],
       "skills_count": 7,
@@ -422,8 +421,8 @@
       "experience_max": 7,
       "days_ago": 11,
       "posted_date_raw": "Mechanical Production Engineer\niLock - Mit Ghamr, Dakahlia, Egypt\n11 days ago",
-      "scraped_at": "2026-04-16T08:06:35.983734+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076871+00:00"
+      "scraped_at": "2026-04-16T08:32:05.456000+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699164+00:00"
     },
     {
       "job_id": "lu2d0irmkyny-production-engineer-el-obour-for-paper-production-cairo-egypt",
@@ -436,10 +435,10 @@
       "location_city": "Cairo",
       "skills": [
         "experienced",
-        "· team collaboration",
-        "· process improvement",
-        "· technical documentation",
-        "· root cause analysis"
+        "\u00b7 team collaboration",
+        "\u00b7 process improvement",
+        "\u00b7 technical documentation",
+        "\u00b7 root cause analysis"
       ],
       "skills_count": 5,
       "experience_label": "3-5 years",
@@ -447,8 +446,29 @@
       "experience_max": 5,
       "days_ago": 2,
       "posted_date_raw": "Production Engineer\nEl-Obour for Paper Production - Obour City, Cairo, Egypt\n2 days ago",
-      "scraped_at": "2026-04-16T08:06:35.983734+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076884+00:00"
+      "scraped_at": "2026-04-16T08:47:26.016565+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699205+00:00"
+    },
+    {
+      "job_id": "bl1q5hs5faeq-bi-engineer-sql-python-riseup-endemag-for-administrative-skills-development-cairo-egypt",
+      "url": "https://wuzzuf.net/jobs/p/bl1q5hs5faeq-bi-engineer-sql-python-riseup-endemag-for-administrative-skills-development-cairo-egypt",
+      "keyword": "data engineer",
+      "title": "BI Engineer - SQL / PYTHON",
+      "company": "RISEUP (Endemag for Administrative Skills Development)",
+      "job_type": "Full Time",
+      "location_raw": "Maadi, Cairo, Egypt",
+      "location_city": "Cairo",
+      "skills": [
+        "bi engineer - sql / python"
+      ],
+      "skills_count": 1,
+      "experience_label": "5+ years",
+      "experience_min": 5,
+      "experience_max": null,
+      "days_ago": 0,
+      "posted_date_raw": "BI Engineer - SQL / PYTHON\nRISEUP (Endemag for Administrative Skills Development) - Maadi, Cairo, Egypt\n1 hour ago",
+      "scraped_at": "2026-04-16T08:47:26.016565+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699242+00:00"
     },
     {
       "job_id": "fzv9lnkvfsdn-data-analyst-zinoxmaster-cairo-egypt",
@@ -462,14 +482,14 @@
       "skills": [
         "zinox&master -",
         "experienced",
-        "· it/software development",
-        "· analyst/research",
-        "· analysis",
-        "· computer science",
+        "\u00b7 it/software development",
+        "\u00b7 analyst/research",
+        "\u00b7 analysis",
+        "\u00b7 computer science",
         "data analysis",
-        "· power bi",
-        "· tableau",
-        "· python"
+        "\u00b7 power bi",
+        "\u00b7 tableau",
+        "\u00b7 python"
       ],
       "skills_count": 10,
       "experience_label": "2-3 years",
@@ -477,8 +497,8 @@
       "experience_max": 3,
       "days_ago": 0,
       "posted_date_raw": "Data Analyst\nZinox&Master - Obour City, Cairo, Egypt\n17 hours ago",
-      "scraped_at": "2026-04-16T08:07:12.029932+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076903+00:00"
+      "scraped_at": "2026-04-16T08:48:23.157135+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699288+00:00"
     },
     {
       "job_id": "xisk1v9zxbg0-data-analyst-misratah-libya",
@@ -491,15 +511,15 @@
       "location_city": "Libya",
       "skills": [
         "experienced",
-        "· analyst/research",
+        "\u00b7 analyst/research",
         "data analysis",
-        "· market research",
-        "· microsoft excel",
-        "· microsoft power bi",
-        "· sql",
-        "· google analytics",
+        "\u00b7 market research",
+        "\u00b7 microsoft excel",
+        "\u00b7 microsoft power bi",
+        "\u00b7 sql",
+        "\u00b7 google analytics",
         "data visualization",
-        "· reporting analysis"
+        "\u00b7 reporting analysis"
       ],
       "skills_count": 10,
       "experience_label": "3+ years",
@@ -507,8 +527,8 @@
       "experience_max": null,
       "days_ago": 8,
       "posted_date_raw": "Data Analyst\nConfidential - Misratah, Libya\n8 days ago",
-      "scraped_at": "2026-04-16T08:07:12.029932+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076918+00:00"
+      "scraped_at": "2026-04-16T08:48:23.157135+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699333+00:00"
     },
     {
       "job_id": "swjo9ibpajco-supply-chain-data-analyst-dora-management-solutions-cairo-egypt",
@@ -521,14 +541,14 @@
       "location_city": "Cairo",
       "skills": [
         "experienced",
-        "· logistics/supply chain",
-        "· analyst/research",
-        "· sales/retail",
-        "· supply chain analysis",
+        "\u00b7 logistics/supply chain",
+        "\u00b7 analyst/research",
+        "\u00b7 sales/retail",
+        "\u00b7 supply chain analysis",
         "data analytics",
-        "· advanced excel",
-        "· inventory management",
-        "· problem solving"
+        "\u00b7 advanced excel",
+        "\u00b7 inventory management",
+        "\u00b7 problem solving"
       ],
       "skills_count": 9,
       "experience_label": "3-6 years",
@@ -536,8 +556,8 @@
       "experience_max": 6,
       "days_ago": 17,
       "posted_date_raw": "Supply Chain data Analyst\nDora Management Solutions - Sheraton, Cairo, Egypt\n17 days ago",
-      "scraped_at": "2026-04-16T08:07:12.029932+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076934+00:00"
+      "scraped_at": "2026-04-16T08:48:23.157135+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699379+00:00"
     },
     {
       "job_id": "pnvpraw6rzge-financial-analyst-zworld-holding-cairo-egypt",
@@ -551,16 +571,16 @@
       "skills": [
         "zworld holding -",
         "experienced",
-        "· accounting/finance",
-        "· analyst/research",
-        "· finance",
-        "· financial analysis",
-        "· financial modeling",
-        "· budgeting",
-        "· forecasting",
+        "\u00b7 accounting/finance",
+        "\u00b7 analyst/research",
+        "\u00b7 finance",
+        "\u00b7 financial analysis",
+        "\u00b7 financial modeling",
+        "\u00b7 budgeting",
+        "\u00b7 forecasting",
         "data analysis",
-        "· microsoft excel",
-        "· sql"
+        "\u00b7 microsoft excel",
+        "\u00b7 sql"
       ],
       "skills_count": 12,
       "experience_label": "3-7 years",
@@ -568,8 +588,8 @@
       "experience_max": 7,
       "days_ago": 2,
       "posted_date_raw": "Financial Analyst\nZworld Holding - Cairo, Egypt\n2 days ago",
-      "scraped_at": "2026-04-16T08:07:12.029932+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076953+00:00"
+      "scraped_at": "2026-04-16T08:48:23.157135+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699441+00:00"
     },
     {
       "job_id": "bso3duwapqrj-financial-analyst-lotus-for-food-industries-giza-egypt",
@@ -582,16 +602,16 @@
       "location_city": "Giza",
       "skills": [
         "experienced",
-        "· accounting/finance",
-        "· analyst/research",
-        "· accounting",
-        "· financial analysis",
-        "· financial modeling",
-        "· budgeting",
-        "· forecasting",
-        "· microsoft excel",
+        "\u00b7 accounting/finance",
+        "\u00b7 analyst/research",
+        "\u00b7 accounting",
+        "\u00b7 financial analysis",
+        "\u00b7 financial modeling",
+        "\u00b7 budgeting",
+        "\u00b7 forecasting",
+        "\u00b7 microsoft excel",
         "data analysis",
-        "· gaap"
+        "\u00b7 gaap"
       ],
       "skills_count": 11,
       "experience_label": "3-7 years",
@@ -599,8 +619,8 @@
       "experience_max": 7,
       "days_ago": 7,
       "posted_date_raw": "Financial Analyst\nLotus For Food Industries - Kerdasa, Giza, Egypt\n7 days ago",
-      "scraped_at": "2026-04-16T08:07:12.029932+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076972+00:00"
+      "scraped_at": "2026-04-16T08:48:23.157135+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699497+00:00"
     },
     {
       "job_id": "7soqc4iudasl-retail-performance-analyst-fashion-retail-dockland-clothing-company-cairo-egypt",
@@ -613,15 +633,15 @@
       "location_city": "Cairo",
       "skills": [
         "experienced",
-        "· analyst/research",
-        "· sales/retail",
-        "· fashion",
-        "· analysis",
+        "\u00b7 analyst/research",
+        "\u00b7 sales/retail",
+        "\u00b7 fashion",
+        "\u00b7 analysis",
         "data analysis",
-        "· fashion retail",
-        "· microsoft excel",
-        "· planning",
-        "· retail"
+        "\u00b7 fashion retail",
+        "\u00b7 microsoft excel",
+        "\u00b7 planning",
+        "\u00b7 retail"
       ],
       "skills_count": 10,
       "experience_label": "3-7 years",
@@ -629,8 +649,8 @@
       "experience_max": 7,
       "days_ago": 10,
       "posted_date_raw": "Retail Performance Analyst (Fashion Retail)\nDockland Clothing Company - Cairo, Egypt\n10 days ago",
-      "scraped_at": "2026-04-16T08:07:12.029932+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.076988+00:00"
+      "scraped_at": "2026-04-16T08:48:23.157135+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699546+00:00"
     },
     {
       "job_id": "rfahe6atbsw0-data-analyst-ibn-sina-pharma-cairo-egypt",
@@ -644,14 +664,14 @@
       "skills": [
         "ibn sina pharma -",
         "entry level",
-        "· it/software development",
-        "· analyst/research",
-        "· analysis",
-        "· analytical",
-        "· commerce",
-        "· bi",
-        "· communication skills",
-        "· computer science",
+        "\u00b7 it/software development",
+        "\u00b7 analyst/research",
+        "\u00b7 analysis",
+        "\u00b7 analytical",
+        "\u00b7 commerce",
+        "\u00b7 bi",
+        "\u00b7 communication skills",
+        "\u00b7 computer science",
         "data analysis"
       ],
       "skills_count": 11,
@@ -660,8 +680,8 @@
       "experience_max": 3,
       "days_ago": 30,
       "posted_date_raw": "Data Analyst\nIbn Sina Pharma - New Cairo, Cairo, Egypt\n1 month ago",
-      "scraped_at": "2026-04-16T08:07:12.029932+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077004+00:00"
+      "scraped_at": "2026-04-16T08:48:23.157135+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699592+00:00"
     },
     {
       "job_id": "xiclpsglupxt-mis-data-analyst-gold-era-cairo-egypt",
@@ -675,13 +695,13 @@
       "skills": [
         "gold era -",
         "experienced",
-        "· accounting/finance",
-        "· analyst/research",
-        "· sales/retail",
-        "· mis",
+        "\u00b7 accounting/finance",
+        "\u00b7 analyst/research",
+        "\u00b7 sales/retail",
+        "\u00b7 mis",
         "data analysis",
-        "· business analysis",
-        "· power bi"
+        "\u00b7 business analysis",
+        "\u00b7 power bi"
       ],
       "skills_count": 9,
       "experience_label": "5-10 years",
@@ -689,14 +709,14 @@
       "experience_max": 10,
       "days_ago": 30,
       "posted_date_raw": "MIS / Data Analyst\nGOLD ERA - Abbassia, Cairo, Egypt\n1 month ago",
-      "scraped_at": "2026-04-16T08:07:12.029932+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077018+00:00"
+      "scraped_at": "2026-04-16T08:48:23.157135+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699643+00:00"
     },
     {
       "job_id": "d6wrnnj6ofcu-data-analyst-analytics-knowledge-delivery-epsilonai-cairo-egypt",
       "url": "https://wuzzuf.net/jobs/p/d6wrnnj6ofcu-data-analyst-analytics-knowledge-delivery-epsilonai-cairo-egypt",
       "keyword": "data analyst",
-      "title": "Data Analyst – Analytics & Knowledge Delivery",
+      "title": "Data Analyst \u2013 Analytics & Knowledge Delivery",
       "company": "EpsilonAI",
       "job_type": "Full Time",
       "location_raw": "Nasr City, Cairo, Egypt",
@@ -704,25 +724,25 @@
       "skills": [
         "epsilonai -",
         "entry level",
-        "· it/software development",
-        "· analyst/research",
+        "\u00b7 it/software development",
+        "\u00b7 analyst/research",
         "data analysis",
         "database sql server",
-        "· mysql",
+        "\u00b7 mysql",
         "data analytics",
         "big data analytics",
-        "· microsoft excel",
-        "· power bi",
-        "· microsoft power bi"
+        "\u00b7 microsoft excel",
+        "\u00b7 power bi",
+        "\u00b7 microsoft power bi"
       ],
       "skills_count": 12,
       "experience_label": "0-3 years",
       "experience_min": 0,
       "experience_max": 3,
       "days_ago": 30,
-      "posted_date_raw": "Data Analyst – Analytics & Knowledge Delivery\nEpsilonAI - Nasr City, Cairo, Egypt\n1 month ago",
-      "scraped_at": "2026-04-16T08:07:12.029932+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077035+00:00"
+      "posted_date_raw": "Data Analyst \u2013 Analytics & Knowledge Delivery\nEpsilonAI - Nasr City, Cairo, Egypt\n1 month ago",
+      "scraped_at": "2026-04-16T08:48:23.157135+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699692+00:00"
     },
     {
       "job_id": "pt8vw0hn23aw-data-analyst-national-technology-group-giza-egypt",
@@ -735,12 +755,12 @@
       "location_city": "Giza",
       "skills": [
         "experienced",
-        "· analyst/research",
-        "· analysis",
-        "· sql",
-        "· power bi",
-        "· microsoft excel",
-        "· python"
+        "\u00b7 analyst/research",
+        "\u00b7 analysis",
+        "\u00b7 sql",
+        "\u00b7 power bi",
+        "\u00b7 microsoft excel",
+        "\u00b7 python"
       ],
       "skills_count": 7,
       "experience_label": "2-5 years",
@@ -748,8 +768,8 @@
       "experience_max": 5,
       "days_ago": 30,
       "posted_date_raw": "Data Analyst\nNational technology group - 6th of October, Giza, Egypt\n1 month ago",
-      "scraped_at": "2026-04-16T08:07:12.029932+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077048+00:00"
+      "scraped_at": "2026-04-16T08:48:23.157135+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699732+00:00"
     },
     {
       "job_id": "oj7bj4jchiwo-financial-analyst-willys-kitchen-egypt-cairo-egypt",
@@ -763,13 +783,13 @@
       "skills": [
         "willys kitchen-egypt -",
         "experienced",
-        "· accounting/finance",
-        "· analyst/research",
-        "· accounting",
-        "· finance",
-        "· financial",
-        "· financial analysis",
-        "· commerce",
+        "\u00b7 accounting/finance",
+        "\u00b7 analyst/research",
+        "\u00b7 accounting",
+        "\u00b7 finance",
+        "\u00b7 financial",
+        "\u00b7 financial analysis",
+        "\u00b7 commerce",
         "financial data analysis"
       ],
       "skills_count": 10,
@@ -778,8 +798,8 @@
       "experience_max": 5,
       "days_ago": 30,
       "posted_date_raw": "Financial Analyst\nwillys kitchen-Egypt - Obour City, Cairo, Egypt\n1 month ago",
-      "scraped_at": "2026-04-16T08:07:12.029932+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077069+00:00"
+      "scraped_at": "2026-04-16T08:48:23.157135+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699785+00:00"
     },
     {
       "job_id": "nbvywszbdwea-accounting-analyst-frutal-for-food-industries-cairo-egypt",
@@ -792,16 +812,16 @@
       "location_city": "Cairo",
       "skills": [
         "experienced",
-        "· accounting/finance",
-        "· analyst/research",
-        "· accounting",
-        "· financial analysis",
-        "· commerce",
-        "· finance",
-        "· budgeting",
-        "· forecasting",
-        "· variance analysis",
-        "· financial reporting"
+        "\u00b7 accounting/finance",
+        "\u00b7 analyst/research",
+        "\u00b7 accounting",
+        "\u00b7 financial analysis",
+        "\u00b7 commerce",
+        "\u00b7 finance",
+        "\u00b7 budgeting",
+        "\u00b7 forecasting",
+        "\u00b7 variance analysis",
+        "\u00b7 financial reporting"
       ],
       "skills_count": 11,
       "experience_label": "5-15 years",
@@ -809,8 +829,8 @@
       "experience_max": 15,
       "days_ago": 30,
       "posted_date_raw": "Accounting Analyst\nFrutal for Food Industries - Heliopolis, Cairo, Egypt\n1 month ago",
-      "scraped_at": "2026-04-16T08:07:12.029932+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077085+00:00"
+      "scraped_at": "2026-04-16T08:48:23.157135+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699831+00:00"
     },
     {
       "job_id": "nj3rav1lsoe0-process-analyst-riseup-endemag-for-administrative-skills-development-cairo-egypt",
@@ -830,39 +850,8 @@
       "experience_max": 8,
       "days_ago": 30,
       "posted_date_raw": "Process Analyst\nRISEUP (Endemag for Administrative Skills Development) - Maadi, Cairo, Egypt\n1 month ago",
-      "scraped_at": "2026-04-16T08:07:12.029932+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077096+00:00"
-    },
-    {
-      "job_id": "hif824t4axxr-data-scientist-and-machine-learning-engineer-applied-ai-knowledge-sharing-epsilonai-cairo-egypt",
-      "url": "https://wuzzuf.net/jobs/p/hif824t4axxr-data-scientist-and-machine-learning-engineer-applied-ai-knowledge-sharing-epsilonai-cairo-egypt",
-      "keyword": "machine learning",
-      "title": "Data Scientist And Machine learning Engineer - Applied AI & Knowledge Sharing",
-      "company": "EpsilonAI",
-      "job_type": "Full Time",
-      "location_raw": "Nasr City, Cairo, Egypt",
-      "location_city": "Cairo",
-      "skills": [
-        "epsilonai -",
-        "entry level",
-        "· it/software development",
-        "· data science",
-        "machine learning",
-        "· python programming",
-        "· teaching & instruction",
-        "· curriculum development",
-        "· statistical analysis",
-        "· communication",
-        "· ai tools & frameworks"
-      ],
-      "skills_count": 11,
-      "experience_label": "0-3 years",
-      "experience_min": 0,
-      "experience_max": 3,
-      "days_ago": 30,
-      "posted_date_raw": "Data Scientist And Machine learning Engineer - Applied AI & Knowledge Sharing\nEpsilonAI - Nasr City, Cairo, Egypt\n1 month ago",
-      "scraped_at": "2026-04-16T08:07:42.729931+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077112+00:00"
+      "scraped_at": "2026-04-16T08:48:23.157135+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699870+00:00"
     },
     {
       "job_id": "9rhh6bv7kdib-software-engineer-technical-content-cc-global-group-llc-cairo-egypt",
@@ -876,11 +865,11 @@
       "skills": [
         "cc global group, llc -",
         "entry level",
-        "· writing/editorial",
-        "· it/software development",
-        "· technical writing",
-        "· software engineering",
-        "· content development",
+        "\u00b7 writing/editorial",
+        "\u00b7 it/software development",
+        "\u00b7 technical writing",
+        "\u00b7 software engineering",
+        "\u00b7 content development",
         "machine learning"
       ],
       "skills_count": 8,
@@ -889,37 +878,8 @@
       "experience_max": null,
       "days_ago": 2,
       "posted_date_raw": "Software Engineer (Technical Content)\nCC Global Group, LLC - New Cairo, Cairo, Egypt\n2 days ago",
-      "scraped_at": "2026-04-16T08:07:42.729931+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077128+00:00"
-    },
-    {
-      "job_id": "0jlu7uzk7kis-ai-engineer-cairo-egypt",
-      "url": "https://wuzzuf.net/jobs/p/0jlu7uzk7kis-ai-engineer-cairo-egypt",
-      "keyword": "machine learning",
-      "title": "AI Engineer",
-      "company": "Experienced",
-      "job_type": "Full Time",
-      "location_raw": "Sheraton, Cairo, Egypt",
-      "location_city": "Cairo",
-      "skills": [
-        "experienced",
-        "· business development",
-        "· it/software development",
-        "· algorithms",
-        "· software development",
-        "· python",
-        "· ai",
-        "· automation engineering",
-        "· workflow architect"
-      ],
-      "skills_count": 9,
-      "experience_label": "2-3 years",
-      "experience_min": 2,
-      "experience_max": 3,
-      "days_ago": 8,
-      "posted_date_raw": "AI Engineer\nConfidential - Sheraton, Cairo, Egypt\n8 days ago",
-      "scraped_at": "2026-04-16T08:07:42.729931+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077143+00:00"
+      "scraped_at": "2026-04-16T08:49:10.474659+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.699971+00:00"
     },
     {
       "job_id": "xsl2ftrivhne-ai-developer-python-midlevel-afaqy-cairo-egypt",
@@ -933,14 +893,14 @@
       "skills": [
         "afaqy -",
         "experienced",
-        "· it/software development",
-        "· ai",
-        "· python",
-        "· software development",
+        "\u00b7 it/software development",
+        "\u00b7 ai",
+        "\u00b7 python",
+        "\u00b7 software development",
         "machine learning",
         "deep learning",
-        "· llm",
-        "· langgraph"
+        "\u00b7 llm",
+        "\u00b7 langgraph"
       ],
       "skills_count": 10,
       "experience_label": "3-6 years",
@@ -948,8 +908,8 @@
       "experience_max": 6,
       "days_ago": 14,
       "posted_date_raw": "AI Developer (Python) - midlevel\nAfaqy - Maadi, Cairo, Egypt\n14 days ago",
-      "scraped_at": "2026-04-16T08:07:42.729931+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077157+00:00"
+      "scraped_at": "2026-04-16T08:49:10.474659+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700078+00:00"
     },
     {
       "job_id": "8zkocqwyusni-senior-data-scientist-vertex-technologies-cairo-egypt",
@@ -963,13 +923,13 @@
       "skills": [
         "vertex technologies -",
         "experienced",
-        "· it/software development",
-        "· english b2",
+        "\u00b7 it/software development",
+        "\u00b7 english b2",
         "machine learning",
-        "· statistical analysis",
-        "· python",
-        "· llm",
-        "· big data technologies"
+        "\u00b7 statistical analysis",
+        "\u00b7 python",
+        "\u00b7 llm",
+        "\u00b7 big data technologies"
       ],
       "skills_count": 9,
       "experience_label": "5+ years",
@@ -977,8 +937,8 @@
       "experience_max": null,
       "days_ago": 14,
       "posted_date_raw": "Senior Data Scientist\nVertex Technologies - Cairo, Egypt\n14 days ago",
-      "scraped_at": "2026-04-16T08:07:42.729931+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077171+00:00"
+      "scraped_at": "2026-04-16T08:49:10.474659+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700132+00:00"
     },
     {
       "job_id": "ytubatrtqqp2-middle-data-scientist-vertex-technologies-cairo-egypt",
@@ -992,16 +952,16 @@
       "skills": [
         "vertex technologies -",
         "experienced",
-        "· it/software development",
-        "· data analysis",
+        "\u00b7 it/software development",
+        "\u00b7 data analysis",
         "machine learning",
-        "· statistical modeling",
-        "· data visualization",
-        "· big data technologies",
-        "· problem solving",
-        "· communication",
-        "· llm orchestration tools",
-        "· databases"
+        "\u00b7 statistical modeling",
+        "\u00b7 data visualization",
+        "\u00b7 big data technologies",
+        "\u00b7 problem solving",
+        "\u00b7 communication",
+        "\u00b7 llm orchestration tools",
+        "\u00b7 databases"
       ],
       "skills_count": 12,
       "experience_label": "2+ years",
@@ -1009,8 +969,8 @@
       "experience_max": null,
       "days_ago": 14,
       "posted_date_raw": "Middle Data Scientist\nVertex Technologies - Cairo, Egypt\n14 days ago",
-      "scraped_at": "2026-04-16T08:07:42.729931+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077194+00:00"
+      "scraped_at": "2026-04-16T08:49:10.474659+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700179+00:00"
     },
     {
       "job_id": "jkvkbo0qfay3-principal-or-engineer-optimization-decision-intelligence-makkook-ai-cairo-egypt",
@@ -1024,14 +984,14 @@
       "skills": [
         "makkook.ai -",
         "experienced",
-        "· it/software development",
-        "· optimization algorithms",
-        "· ai architecture",
+        "\u00b7 it/software development",
+        "\u00b7 optimization algorithms",
+        "\u00b7 ai architecture",
         "machine learning",
-        "· data engineering",
-        "· problem solving",
-        "· decision intelligence",
-        "· team leadership"
+        "\u00b7 data engineering",
+        "\u00b7 problem solving",
+        "\u00b7 decision intelligence",
+        "\u00b7 team leadership"
       ],
       "skills_count": 10,
       "experience_label": "7+ years",
@@ -1039,8 +999,8 @@
       "experience_max": null,
       "days_ago": 27,
       "posted_date_raw": "Principal OR Engineer (Optimization & Decision Intelligence)\nMakkook.AI - Maadi, Cairo, Egypt\n27 days ago",
-      "scraped_at": "2026-04-16T08:07:42.729931+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077210+00:00"
+      "scraped_at": "2026-04-16T08:49:10.474659+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700209+00:00"
     },
     {
       "job_id": "o1a7fazksizo-senior-data-scientist-egabi-fsi-cairo-egypt",
@@ -1054,15 +1014,15 @@
       "skills": [
         "egabi fsi -",
         "experienced",
-        "· it/software development",
-        "· computer science",
-        "· data mining",
-        "· data science",
-        "· data scientist",
-        "· hadoop",
+        "\u00b7 it/software development",
+        "\u00b7 computer science",
+        "\u00b7 data mining",
+        "\u00b7 data science",
+        "\u00b7 data scientist",
+        "\u00b7 hadoop",
         "machine learning",
-        "· python",
-        "· sql"
+        "\u00b7 python",
+        "\u00b7 sql"
       ],
       "skills_count": 11,
       "experience_label": "3+ years",
@@ -1070,8 +1030,8 @@
       "experience_max": null,
       "days_ago": 30,
       "posted_date_raw": "Senior Data Scientist\nEgabi FSI - Sheraton, Cairo, Egypt\n30 days ago",
-      "scraped_at": "2026-04-16T08:07:42.729931+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077228+00:00"
+      "scraped_at": "2026-04-16T08:49:10.474659+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700236+00:00"
     },
     {
       "job_id": "zswfgfcppaym-ai-engineer-llm-ai-applications-exab-cairo-egypt",
@@ -1085,13 +1045,13 @@
       "skills": [
         "exab -",
         "experienced",
-        "· it/software development",
-        "· analyst/research",
-        "· ai",
-        "· computer science",
-        "· engineering",
-        "· data science",
-        "· python"
+        "\u00b7 it/software development",
+        "\u00b7 analyst/research",
+        "\u00b7 ai",
+        "\u00b7 computer science",
+        "\u00b7 engineering",
+        "\u00b7 data science",
+        "\u00b7 python"
       ],
       "skills_count": 9,
       "experience_label": "3-7 years",
@@ -1099,8 +1059,8 @@
       "experience_max": 7,
       "days_ago": 30,
       "posted_date_raw": "AI Engineer (LLM & AI Applications)\nExab - Cairo, Egypt\n1 month ago",
-      "scraped_at": "2026-04-16T08:07:42.729931+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077242+00:00"
+      "scraped_at": "2026-04-16T08:49:10.474659+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700269+00:00"
     },
     {
       "job_id": "o3vidob5biei-ai-engineer-cairo-egypt",
@@ -1113,12 +1073,12 @@
       "location_city": "Cairo",
       "skills": [
         "experienced",
-        "· it/software development",
-        "· analyst/research",
-        "· ai",
-        "· python",
-        "· agentic",
-        "· agentic frameworks",
+        "\u00b7 it/software development",
+        "\u00b7 analyst/research",
+        "\u00b7 ai",
+        "\u00b7 python",
+        "\u00b7 agentic",
+        "\u00b7 agentic frameworks",
         "machine learning",
         "deep learning"
       ],
@@ -1128,8 +1088,8 @@
       "experience_max": 5,
       "days_ago": 60,
       "posted_date_raw": "AI Engineer\nConfidential - Cairo, Egypt\n2 months ago",
-      "scraped_at": "2026-04-16T08:07:42.729931+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077255+00:00"
+      "scraped_at": "2026-04-16T08:49:10.474659+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700342+00:00"
     },
     {
       "job_id": "giv8v2xgmxxq-ai-engineer-project-manager-nx-creative-paris-france",
@@ -1143,12 +1103,12 @@
       "skills": [
         "nx creative -",
         "experienced",
-        "· independent / ownership",
-        "· organizational skills",
-        "· time management",
-        "· remote teamwork",
-        "· problem-solving",
-        "· analytical skills"
+        "\u00b7 independent / ownership",
+        "\u00b7 organizational skills",
+        "\u00b7 time management",
+        "\u00b7 remote teamwork",
+        "\u00b7 problem-solving",
+        "\u00b7 analytical skills"
       ],
       "skills_count": 8,
       "experience_label": "3-7 years",
@@ -1156,14 +1116,14 @@
       "experience_max": 7,
       "days_ago": 60,
       "posted_date_raw": "AI Engineer & Project Manager\nNX CREATIVE - Paris, France\n2 months ago",
-      "scraped_at": "2026-04-16T08:07:42.729931+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077269+00:00"
+      "scraped_at": "2026-04-16T08:49:10.474659+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700389+00:00"
     },
     {
       "job_id": "zvd2isgd0dty-junior-engineer-machine-maintenance-crm-cairo-egypt",
       "url": "https://wuzzuf.net/jobs/p/zvd2isgd0dty-junior-engineer-machine-maintenance-crm-cairo-egypt",
       "keyword": "machine learning",
-      "title": "Junior Engineer –Machine Maintenance",
+      "title": "Junior Engineer \u2013Machine Maintenance",
       "company": "CRM",
       "job_type": "Full Time",
       "location_raw": "Nasr City, Cairo, Egypt",
@@ -1171,19 +1131,19 @@
       "skills": [
         "crm -",
         "entry level",
-        "· engineering - other",
-        "· michine maintenamce",
-        "· mechatronics",
-        "· mechanical engineering"
+        "\u00b7 engineering - other",
+        "\u00b7 michine maintenamce",
+        "\u00b7 mechatronics",
+        "\u00b7 mechanical engineering"
       ],
       "skills_count": 6,
       "experience_label": "0-2 years",
       "experience_min": 0,
       "experience_max": 2,
       "days_ago": 60,
-      "posted_date_raw": "Junior Engineer –Machine Maintenance\nCRM - Nasr City, Cairo, Egypt\n2 months ago",
-      "scraped_at": "2026-04-16T08:07:42.729931+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077283+00:00"
+      "posted_date_raw": "Junior Engineer \u2013Machine Maintenance\nCRM - Nasr City, Cairo, Egypt\n2 months ago",
+      "scraped_at": "2026-04-16T08:49:10.474659+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700423+00:00"
     },
     {
       "job_id": "yfbo1jgljx7s-data-engineer-sana-commerce-alexandria-egypt",
@@ -1197,9 +1157,9 @@
       "skills": [
         "sana commerce -",
         "experienced",
-        "· it/software development",
+        "\u00b7 it/software development",
         "machine learning",
-        "· data engineering"
+        "\u00b7 data engineering"
       ],
       "skills_count": 5,
       "experience_label": "8+ years",
@@ -1207,8 +1167,8 @@
       "experience_max": null,
       "days_ago": 60,
       "posted_date_raw": "Data Engineer\nSana Commerce - Alexandria, Egypt\n2 months ago",
-      "scraped_at": "2026-04-16T08:07:42.729931+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077299+00:00"
+      "scraped_at": "2026-04-16T08:49:10.474659+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700450+00:00"
     },
     {
       "job_id": "p7hmshuyt1sq-it-ai-engineer-cairo-egypt",
@@ -1221,13 +1181,13 @@
       "location_city": "Cairo",
       "skills": [
         "experienced",
-        "· it/software development",
-        "· artificial intelligence",
+        "\u00b7 it/software development",
+        "\u00b7 artificial intelligence",
         "machine learning",
-        "· data analysis",
-        "· python programming",
-        "· network security",
-        "· cloud computing"
+        "\u00b7 data analysis",
+        "\u00b7 python programming",
+        "\u00b7 network security",
+        "\u00b7 cloud computing"
       ],
       "skills_count": 8,
       "experience_label": "3-10 years",
@@ -1235,8 +1195,8 @@
       "experience_max": 10,
       "days_ago": 60,
       "posted_date_raw": "IT & AI Engineer\nConfidential - New Cairo, Cairo, Egypt\n2 months ago",
-      "scraped_at": "2026-04-16T08:07:42.729931+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077313+00:00"
+      "scraped_at": "2026-04-16T08:49:10.474659+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700478+00:00"
     },
     {
       "job_id": "wludgyeoz23u-business-analyst-electro-pi-cairo-egypt",
@@ -1250,11 +1210,11 @@
       "skills": [
         "electro pi -",
         "experienced",
-        "· it/software development",
-        "· analyst/research",
-        "· business analysis",
-        "· requirements gathering",
-        "· stakeholder management"
+        "\u00b7 it/software development",
+        "\u00b7 analyst/research",
+        "\u00b7 business analysis",
+        "\u00b7 requirements gathering",
+        "\u00b7 stakeholder management"
       ],
       "skills_count": 7,
       "experience_label": "3-5 years",
@@ -1262,8 +1222,8 @@
       "experience_max": 5,
       "days_ago": 60,
       "posted_date_raw": "Business Analyst\nElectro Pi - Maadi, Cairo, Egypt\n2 months ago",
-      "scraped_at": "2026-04-16T08:07:42.729931+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077326+00:00"
+      "scraped_at": "2026-04-16T08:49:10.474659+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700514+00:00"
     },
     {
       "job_id": "fsmj9wn13svm-backend-developer-chicago-united-states",
@@ -1276,15 +1236,15 @@
       "location_city": "United States",
       "skills": [
         "experienced",
-        "· it/software development",
-        "· git",
-        "· api",
-        "· software engineering",
+        "\u00b7 it/software development",
+        "\u00b7 git",
+        "\u00b7 api",
+        "\u00b7 software engineering",
         "software development",
-        "· computer science",
-        "· mysql",
-        "· mysql database",
-        "· node.js"
+        "\u00b7 computer science",
+        "\u00b7 mysql",
+        "\u00b7 mysql database",
+        "\u00b7 node.js"
       ],
       "skills_count": 10,
       "experience_label": "3-7 years",
@@ -1292,8 +1252,8 @@
       "experience_max": 7,
       "days_ago": 4,
       "posted_date_raw": "Backend Developer\nConfidential - Chicago, United States\n4 days ago",
-      "scraped_at": "2026-04-16T08:08:16.318755+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077340+00:00"
+      "scraped_at": "2026-04-16T08:50:05.858243+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700543+00:00"
     },
     {
       "job_id": "f0vpethre2gk-junior-net-developer-backendintegration-giza-egypt",
@@ -1306,8 +1266,8 @@
       "location_city": "Giza",
       "skills": [
         "entry level",
-        "· it/software development",
-        "· .net",
+        "\u00b7 it/software development",
+        "\u00b7 .net",
         "software development"
       ],
       "skills_count": 4,
@@ -1316,8 +1276,8 @@
       "experience_max": 2,
       "days_ago": 0,
       "posted_date_raw": "Junior .Net Developer (Backend/Integration)\nConfidential - Mohandessin, Giza, Egypt\n17 hours ago",
-      "scraped_at": "2026-04-16T08:08:16.318755+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077353+00:00"
+      "scraped_at": "2026-04-16T08:50:05.858243+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700572+00:00"
     },
     {
       "job_id": "ttycahncwcow-backend-developer-charisma-design-cairo-egypt",
@@ -1331,13 +1291,13 @@
       "skills": [
         "charisma design -",
         "experienced",
-        "· creative/design/art",
-        "· it/software development",
-        "· agile",
-        "· computer science",
-        "· api",
-        "· php",
-        "· laravel",
+        "\u00b7 creative/design/art",
+        "\u00b7 it/software development",
+        "\u00b7 agile",
+        "\u00b7 computer science",
+        "\u00b7 api",
+        "\u00b7 php",
+        "\u00b7 laravel",
         "software development"
       ],
       "skills_count": 10,
@@ -1346,8 +1306,8 @@
       "experience_max": 5,
       "days_ago": 7,
       "posted_date_raw": "Backend Developer\nCharisma Design - Nasr City, Cairo, Egypt\n7 days ago",
-      "scraped_at": "2026-04-16T08:08:16.318755+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077385+00:00"
+      "scraped_at": "2026-04-16T08:50:05.858243+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700605+00:00"
     },
     {
       "job_id": "7azvejktmfk8-mid-level-django-backend-developer-software-house-solution-cairo-egypt",
@@ -1361,15 +1321,15 @@
       "skills": [
         "software house solution -",
         "experienced",
-        "· it/software development",
-        "· python",
-        "· django",
-        "· restful apis",
-        "· sql",
-        "· git",
-        "· team collaboration",
-        "· problem solving",
-        "· html"
+        "\u00b7 it/software development",
+        "\u00b7 python",
+        "\u00b7 django",
+        "\u00b7 restful apis",
+        "\u00b7 sql",
+        "\u00b7 git",
+        "\u00b7 team collaboration",
+        "\u00b7 problem solving",
+        "\u00b7 html"
       ],
       "skills_count": 11,
       "experience_label": "2-7 years",
@@ -1377,8 +1337,8 @@
       "experience_max": 7,
       "days_ago": 23,
       "posted_date_raw": "Mid level Django Backend Developer\nSoftware House Solution - Heliopolis, Cairo, Egypt\n23 days ago",
-      "scraped_at": "2026-04-16T08:08:16.318755+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077404+00:00"
+      "scraped_at": "2026-04-16T08:50:05.858243+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700634+00:00"
     },
     {
       "job_id": "commrc4uthhw-mid-senior-net-backend-developer-bedbank-sa-riyadh-saudi-arabia",
@@ -1392,15 +1352,15 @@
       "skills": [
         "bedbank.sa -",
         "experienced",
-        "· it/software development",
-        "· .net",
-        "· postgresql",
-        "· c#",
-        "· computer science",
-        "· docker",
-        "· api",
-        "· entity framework",
-        "· git"
+        "\u00b7 it/software development",
+        "\u00b7 .net",
+        "\u00b7 postgresql",
+        "\u00b7 c#",
+        "\u00b7 computer science",
+        "\u00b7 docker",
+        "\u00b7 api",
+        "\u00b7 entity framework",
+        "\u00b7 git"
       ],
       "skills_count": 11,
       "experience_label": "3+ years",
@@ -1408,8 +1368,8 @@
       "experience_max": null,
       "days_ago": 26,
       "posted_date_raw": "Mid-Senior .NET Backend Developer\nBedbank.sa - Riyadh, Saudi Arabia\n26 days ago",
-      "scraped_at": "2026-04-16T08:08:16.318755+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077422+00:00"
+      "scraped_at": "2026-04-16T08:50:05.858243+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700663+00:00"
     },
     {
       "job_id": "isljoic7ew42-senior-net-backend-developer-bedbank-sa-riyadh-saudi-arabia",
@@ -1423,11 +1383,11 @@
       "skills": [
         "bedbank.sa -",
         "experienced",
-        "· it/software development",
-        "· .net",
-        "· postgresql",
+        "\u00b7 it/software development",
+        "\u00b7 .net",
+        "\u00b7 postgresql",
         "software development",
-        "· cqrs with mediatr"
+        "\u00b7 cqrs with mediatr"
       ],
       "skills_count": 7,
       "experience_label": "4+ years",
@@ -1435,8 +1395,8 @@
       "experience_max": null,
       "days_ago": 26,
       "posted_date_raw": "Senior .NET Backend Developer\nBedbank.sa - Riyadh, Saudi Arabia\n26 days ago",
-      "scraped_at": "2026-04-16T08:08:16.318755+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077436+00:00"
+      "scraped_at": "2026-04-16T08:50:05.858243+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.700687+00:00"
     },
     {
       "job_id": "zkodibtif1qt-back-end-developer-barq-giza-egypt",
@@ -1450,14 +1410,14 @@
       "skills": [
         "barq -",
         "experienced",
-        "· it/software development",
-        "· computer science",
+        "\u00b7 it/software development",
+        "\u00b7 computer science",
         "software development",
-        "· software engineering",
-        "· git",
-        "· javascript",
-        "· laravel",
-        "· mysql"
+        "\u00b7 software engineering",
+        "\u00b7 git",
+        "\u00b7 javascript",
+        "\u00b7 laravel",
+        "\u00b7 mysql"
       ],
       "skills_count": 10,
       "experience_label": "3-7 years",
@@ -1465,8 +1425,35 @@
       "experience_max": 7,
       "days_ago": 30,
       "posted_date_raw": "Back-End Developer\nBarq - Dokki, Giza, Egypt\n30 days ago",
-      "scraped_at": "2026-04-16T08:08:16.318755+00:00",
-      "cleaned_at": "2026-04-16T08:09:02.077453+00:00"
+      "scraped_at": "2026-04-16T08:50:05.858243+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.701271+00:00"
+    },
+    {
+      "job_id": "gsoalsfptcfl-senior-full-stack-engineer-backend-frontend-devops-cloud-infrastructure-munich-germany",
+      "url": "https://wuzzuf.net/jobs/p/gsoalsfptcfl-senior-full-stack-engineer-backend-frontend-devops-cloud-infrastructure-munich-germany",
+      "keyword": "backend developer",
+      "title": "Senior Full-Stack Engineer Backend \u00b7 Frontend \u00b7 DevOps \u00b7 Cloud Infrastructure",
+      "company": "Experienced",
+      "job_type": "Full Time",
+      "location_raw": "Munich, Germany",
+      "location_city": "Germany",
+      "skills": [
+        "experienced",
+        "\u00b7 it/software development",
+        "\u00b7 cloud",
+        "\u00b7 devops",
+        "software development",
+        "\u00b7 computer science",
+        "\u00b7 software engineering"
+      ],
+      "skills_count": 7,
+      "experience_label": "2-5 years",
+      "experience_min": 2,
+      "experience_max": 5,
+      "days_ago": 9,
+      "posted_date_raw": "Senior Full-Stack Engineer Backend \u00b7 Frontend \u00b7 DevOps \u00b7 Cloud Infrastructure\nConfidential - Munich, Germany\n9 days ago",
+      "scraped_at": "2026-04-16T08:50:05.858243+00:00",
+      "cleaned_at": "2026-04-16T08:51:11.701326+00:00"
     }
   ]
 }
